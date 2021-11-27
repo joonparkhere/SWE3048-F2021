@@ -1,25 +1,22 @@
 a {
     text-decoration: none;
-    color: white;
 }
 
-.container {
+.login-container {
     display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+    flex-direction: column;
 }
 
-.action {
+.login {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 1vh 1vh;
-    background-color: black;
+    margin: 1vh 1vh;
     border-radius: 1.5vh;
 }
 
-.action-text {
+.login-text {
     padding-left: 1vh;
     font-size: 2vh;
+    font-weight: bold;
 }

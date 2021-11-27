@@ -18,17 +18,10 @@ spring:
         format_sql: true
     open-in-view: true
 
-  security:
-    oauth2:
-      client:
-        registration:
-          github:
-            client-id: a0509b9199f2a9b0ace2
-            client-secret: 7108dae7612019096a7f7ebc6249f8447806469e
-            scope:
-              - read:user
-              - user:email
-
   devtools:
     livereload:
       enabled: true
+---
+spring:
+  config:
+    import: application-oauth2.yml

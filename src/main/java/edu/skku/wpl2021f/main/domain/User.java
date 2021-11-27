@@ -1,4 +1,4 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.main.domain;
 
 import lombok.*;
 

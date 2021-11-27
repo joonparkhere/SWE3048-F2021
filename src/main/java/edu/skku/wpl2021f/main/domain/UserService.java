@@ -1,5 +1,6 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.main.domain;
 
+import edu.skku.wpl2021f.auth.dto.CustomOAuth2UserDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,7 +1,13 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.auth.core;
 
+import edu.skku.wpl2021f.auth.principal.CustomOAuth2User;
+import edu.skku.wpl2021f.auth.dto.CustomOAuth2UserDto;
+import edu.skku.wpl2021f.main.domain.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.OAuth2Error;
@@ -31,6 +37,12 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         CustomOAuth2UserDto oAuth2UserDto = CustomOAuth2UserDto.of(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), principal);
 
         userService.register(oAuth2UserDto);
+
+        UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
+                oAuth2UserDto.toEntity(), "", principal.getAuthorities()
+        );
+        SecurityContext context = SecurityContextHolder.getContext();
+        context.setAuthentication(authenticationToken);
 
         clearAuthenticationAttributes(request);
         getRedirectStrategy().sendRedirect(request, response, "/");

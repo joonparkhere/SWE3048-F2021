@@ -1,5 +1,9 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.auth.dto;
 
+import edu.skku.wpl2021f.auth.principal.GithubOAuth2User;
+import edu.skku.wpl2021f.auth.principal.GoogleOAuth2User;
+import edu.skku.wpl2021f.main.domain.User;
+import edu.skku.wpl2021f.auth.principal.CustomOAuth2User;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -26,6 +30,9 @@ public class CustomOAuth2UserDto {
         if (registrationId.equalsIgnoreCase(GithubOAuth2User.REGISTRATION_ID)) {
             return ofGithub((GithubOAuth2User) customOAuth2User);
         }
+        if (registrationId.equalsIgnoreCase(GoogleOAuth2User.REGISTRATION_ID)) {
+            return ofGoogle((GoogleOAuth2User) customOAuth2User);
+        }
         throw new IllegalArgumentException("'" + registrationId + "' is not supported resource server");
     }
 
@@ -34,6 +41,14 @@ public class CustomOAuth2UserDto {
                 .oAuth2Id(oAuth2User.getOAuth2Id())
                 .email(oAuth2User.getEmail())
                 .nickname(oAuth2User.getEmail())
+                .build();
+    }
+
+    private static CustomOAuth2UserDto ofGoogle(GoogleOAuth2User oAuth2User) {
+        return CustomOAuth2UserDto.builder()
+                .oAuth2Id(oAuth2User.getOAuth2Id())
+                .email(oAuth2User.getEmail())
+                .nickname(oAuth2User.getNickname())
                 .build();
     }
 

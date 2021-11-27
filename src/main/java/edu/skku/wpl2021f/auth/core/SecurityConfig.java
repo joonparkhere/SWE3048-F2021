@@ -1,4 +1,4 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.auth.core;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -34,7 +34,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .userInfoEndpoint().userService(configUserService())
                 .and()
                 .successHandler(configSuccessHandler())
-                .loginPage("/login")
+                .permitAll();
+
+        http.logout()
+                .logoutSuccessUrl("/")
                 .permitAll();
     }
 

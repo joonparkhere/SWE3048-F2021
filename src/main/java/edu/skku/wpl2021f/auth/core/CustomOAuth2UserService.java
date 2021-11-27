@@ -1,5 +1,6 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.auth.core;
 
+import edu.skku.wpl2021f.auth.principal.CustomOAuth2UserFactory;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;

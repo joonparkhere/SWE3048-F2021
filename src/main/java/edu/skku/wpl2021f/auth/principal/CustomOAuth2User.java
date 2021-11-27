@@ -1,4 +1,4 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.auth.principal;
 
 import org.springframework.security.oauth2.core.user.OAuth2User;
 

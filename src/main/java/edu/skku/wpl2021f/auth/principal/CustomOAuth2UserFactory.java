@@ -1,4 +1,4 @@
-package edu.skku.wpl2021f.auth;
+package edu.skku.wpl2021f.auth.principal;
 
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
@@ -17,6 +17,14 @@ public class CustomOAuth2UserFactory {
 
         if (clientName.equalsIgnoreCase(GithubOAuth2User.REGISTRATION_ID)) {
             return GithubOAuth2User.builder()
+                    .authorities(oAuth2User.getAuthorities())
+                    .attributes(oAuth2User.getAttributes())
+                    .nameAttributeKey(nameAttributeKey)
+                    .build();
+        }
+
+        if (clientName.equalsIgnoreCase(GoogleOAuth2User.REGISTRATION_ID)) {
+            return GoogleOAuth2User.builder()
                     .authorities(oAuth2User.getAuthorities())
                     .attributes(oAuth2User.getAttributes())
                     .nameAttributeKey(nameAttributeKey)
