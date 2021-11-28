@@ -18,8 +18,99 @@
 <div>
     <jsp:include page="nav.jsp" />
 
-    <div style="background-color: coral; color: white; height: 100vh">
-        ... Contents ...
+    <div class="contents">
+        <div class="card mb-3">
+            <h5 class="card-header">
+                <a class="nav-link" href="#">Recruiting Study</a>
+            </h5>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">게시글 01 제목</h5>
+                                <p class="card-text">게시글 01 내용</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">게시글 02 제목</h5>
+                                <p class="card-text">게시글 02 내용</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">게시글 03 제목</h5>
+                                <p class="card-text">게시글 03 내용</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">게시글 04 제목</h5>
+                                <p class="card-text">게시글 04 내용</p>
+                                <a href="#" class="btn btn-primary">자세히 보기</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <h5 class="card-header">
+                        <a class="nav-link" href="#">Free Board</a>
+                    </h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 01 제목</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 02 제목</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 03 제목</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 04 제목</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-md-6">
+                <div class="card mb-3">
+                    <h5 class="card-header">
+                        <a class="nav-link" href="#">Topic Board</a>
+                    </h5>
+                    <ul class="list-group">
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 01 제목</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 02 제목</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 03 제목</a>
+                        </li>
+                        <li class="list-group-item">
+                            <a class="nav-link disabled" href="#">게시글 04 제목</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </div>
 

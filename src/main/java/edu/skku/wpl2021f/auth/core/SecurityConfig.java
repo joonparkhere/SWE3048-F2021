@@ -28,6 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
 
         http.authorizeRequests()
+                .mvcMatchers("/", "/index").permitAll()
                 .anyRequest().permitAll();
 
         http.oauth2Login()
