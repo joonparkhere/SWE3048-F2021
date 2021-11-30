@@ -40,7 +40,7 @@ public class CustomOAuth2UserDto {
         return CustomOAuth2UserDto.builder()
                 .oAuth2Id(oAuth2User.getOAuth2Id())
                 .email(oAuth2User.getEmail())
-                .nickname(oAuth2User.getEmail())
+                .nickname(oAuth2User.getNickname())
                 .build();
     }
 

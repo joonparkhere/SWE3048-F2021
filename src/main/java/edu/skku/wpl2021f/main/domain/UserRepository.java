@@ -11,4 +11,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("select u from User u where u.oAuth2Id = :oAuth2Id")
     Optional<User> findByOAuth2Id(@Param("oAuth2Id") String oAuth2Id);
 
+    Optional<User> findByNickname(String nickname);
+
 }

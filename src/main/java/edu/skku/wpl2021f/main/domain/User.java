@@ -1,11 +1,11 @@
 package edu.skku.wpl2021f.main.domain;
 
+import edu.skku.wpl2021f.study.domain.StudyUser;
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -28,6 +28,14 @@ public class User {
 
     @Column(nullable = false)
     private String nickname;
+
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<StudyUser> studySet = new HashSet<>();
 
     @Builder
     public User(String oAuth2Id, String email, String nickname) {

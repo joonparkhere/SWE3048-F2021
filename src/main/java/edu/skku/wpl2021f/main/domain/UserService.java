@@ -13,6 +13,16 @@ public class UserService {
 
     private final UserRepository userRepository;
 
+    @Transactional(readOnly = true)
+    public User loadUserByOAuth2Id(String oAuth2Id) {
+        return userRepository.findByOAuth2Id(oAuth2Id).orElseThrow(RuntimeException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public User loadUserByNickname(String nickname) {
+        return userRepository.findByNickname(nickname).orElseThrow(RuntimeException::new);
+    }
+
     @Transactional
     public User register(CustomOAuth2UserDto oAuth2UserDto) {
         User user = oAuth2UserDto.toEntity();
@@ -29,12 +39,6 @@ public class UserService {
         if (optionalUser.isPresent()) {
             throw new RuntimeException("Already registered user");
         }
-    }
-
-    @Transactional(readOnly = true)
-    public User loadUserByOAuth2Id(String oAuth2Id) {
-        return userRepository.findByOAuth2Id(oAuth2Id)
-                .orElseThrow(RuntimeException::new);
     }
 
 }
