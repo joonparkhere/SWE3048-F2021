@@ -24,7 +24,7 @@ public class Study {
 
     @CreatedDate
     @Column(updatable = false)
-    private LocalDateTime createdTime;
+    private LocalDateTime createdDate;
 
     @LastModifiedDate
     private LocalDateTime lastModifiedDate;
@@ -37,6 +37,8 @@ public class Study {
 
     @Column
     private String description;
+
+    private boolean isDelete = false;
 
     private boolean isComplete = false;
 
@@ -58,6 +60,10 @@ public class Study {
         this.title = title;
         this.description = description;
         this.leader = leader;
+    }
+
+    public void delete() {
+        this.isDelete = true;
     }
 
     public void complete() {

@@ -1,7 +1,7 @@
 package edu.skku.wpl2021f.main.controller;
 
 import edu.skku.wpl2021f.main.domain.User;
-import edu.skku.wpl2021f.main.dto.UserDto;
+import edu.skku.wpl2021f.main.dto.UserResponseDto;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 public class GlobalControllerAdvice {
 
     @ModelAttribute("user")
-    public UserDto addUser(@AuthenticationPrincipal User user) {
+    public UserResponseDto addUser(@AuthenticationPrincipal User user) {
         if (user == null) return null;
 
-        return UserDto.builder()
+        return UserResponseDto.builder()
+                .id(user.getId())
                 .email(user.getEmail())
                 .nickname(user.getNickname())
                 .build();

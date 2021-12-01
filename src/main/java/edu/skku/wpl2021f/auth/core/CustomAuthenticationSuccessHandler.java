@@ -2,6 +2,7 @@ package edu.skku.wpl2021f.auth.core;
 
 import edu.skku.wpl2021f.auth.principal.CustomOAuth2User;
 import edu.skku.wpl2021f.auth.dto.CustomOAuth2UserDto;
+import edu.skku.wpl2021f.main.domain.User;
 import edu.skku.wpl2021f.main.domain.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -36,10 +37,10 @@ public class CustomAuthenticationSuccessHandler extends SavedRequestAwareAuthent
         CustomOAuth2User principal = checkInvalidPrincipal(oAuth2AuthenticationToken.getPrincipal());
         CustomOAuth2UserDto oAuth2UserDto = CustomOAuth2UserDto.of(oAuth2AuthenticationToken.getAuthorizedClientRegistrationId(), principal);
 
-        userService.register(oAuth2UserDto);
+        User user = userService.register(oAuth2UserDto);
 
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
-                oAuth2UserDto.toEntity(), "", principal.getAuthorities()
+                user, "", principal.getAuthorities()
         );
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(authenticationToken);

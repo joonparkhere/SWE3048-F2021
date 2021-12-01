@@ -6,7 +6,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -31,6 +33,18 @@ public class StudyService {
         return studyRepository.findByRecruitId(recruitId).orElseThrow(RuntimeException::new);
     }
 
+    @Transactional(readOnly = true)
+    public List<Study> loadStudyListByNickname(String nickname, boolean isComplete) {
+        User user = userService.loadUserByNickname(nickname);
+        Set<StudyUser> studyUserSet = studyUserRepository.findByUser(user);
+        return studyUserSet.stream()
+                .map(StudyUser::getStudy)
+                .filter(study -> !study.isDelete())
+                .filter(study -> study.isComplete() == isComplete)
+                .sorted((o1, o2) -> o1.getCreatedDate().compareTo(o2.getCreatedDate()))
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public Study create(Long recruitId, String title, String description, String leaderNickname) {
         User leader = userService.loadUserByNickname(leaderNickname);
@@ -43,15 +57,11 @@ public class StudyService {
         return studyRepository.save(study);
     }
 
-//    @Transactional
-//    public void remove(Long studyId) {
-//        Study study = loadStudyById(studyId);
-//        Set<StudyUser> studyUserSet = study.getUserSet();
-//        for (StudyUser studyUser : studyUserSet) {
-//            studyUserRepository.delete(studyUser);
-//        }
-//        studyRepository.delete(study);
-//    }
+    @Transactional
+    public void remove(Long studyId) {
+        Study study = loadStudyById(studyId);
+        study.delete();
+    }
 
     @Transactional
     public void complete(Long studyId) {
@@ -62,6 +72,22 @@ public class StudyService {
     @Transactional(readOnly = true)
     public StudyUser loadStudyUserById(Long studyUserId) {
         return studyUserRepository.findById(studyUserId).orElseThrow(RuntimeException::new);
+    }
+
+    @Transactional(readOnly = true)
+    public List<StudyUser> loadStudyUserListByStudyIdAsLeader(Long studyId, String leaderNickname) {
+        Study study = loadStudyById(studyId);
+        User leader = userService.loadUserByNickname(leaderNickname);
+
+        if (leader != study.getLeader()) {
+            throw new RuntimeException();
+        }
+
+        Set<StudyUser> studyUserSet = studyUserRepository.findByStudy(study);
+        return studyUserSet.stream()
+                .filter(studyUser -> !studyUser.isEvicted())
+                .sorted((o1, o2) -> o1.getCreatedDate().compareTo(o2.getCreatedDate()))
+                .collect(Collectors.toList());
     }
 
     @Transactional

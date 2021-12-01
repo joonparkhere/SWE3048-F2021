@@ -1,38 +1,65 @@
 package edu.skku.wpl2021f.study.controller;
 
-import edu.skku.wpl2021f.study.Dto.JoinStudyUserDto;
-import edu.skku.wpl2021f.study.Dto.RequestStudyDto;
-import edu.skku.wpl2021f.study.Dto.RequestStudyUserDto;
 import edu.skku.wpl2021f.study.domain.Study;
+import edu.skku.wpl2021f.study.domain.StudyUser;
+import edu.skku.wpl2021f.study.dto.*;
 import edu.skku.wpl2021f.study.domain.StudyService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.modelmapper.ModelMapper;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+import java.util.stream.Collectors;
+
+@RestController
 @RequiredArgsConstructor
 public class StudyController {
 
+    private final ModelMapper modelMapper;
     private final StudyService studyService;
 
-//    @DeleteMapping("/study")
-//    public void removeStudy(
-//            @RequestBody RequestStudyDto requestStudyDto
-//    ) {
-//        studyService.remove(requestStudyDto.getStudyId());
-//    }
+    @GetMapping("/study")
+    public List<StudyResponseDto> inquiryStudy(
+            @RequestParam(name = "nickname") String nickname,
+            @RequestParam(name = "complete") boolean isComplete
+    ) {
+        List<Study> studyList = studyService.loadStudyListByNickname(nickname, isComplete);
+        return studyList.stream()
+                .map(study -> modelMapper.map(study, StudyResponseDto.class))
+                .collect(Collectors.toList());
+    }
 
     @PutMapping("/study")
-    public void completeStudy(
-            @RequestBody RequestStudyDto requestStudyDto
+    public BasicResponseDto completeStudy(
+            @RequestParam(name = "studyId") Long studyId
     ) {
-        studyService.complete(requestStudyDto.getStudyId());
+        studyService.complete(studyId);
+        return new BasicResponseDto(true);
+    }
+
+    @DeleteMapping("/study")
+    public BasicResponseDto removeStudy(
+            @RequestParam(name = "studyId") Long studyId
+    ) {
+        studyService.remove(studyId);
+        return new BasicResponseDto(true);
+    }
+
+    @GetMapping("/study/user")
+    public List<StudyUserResponseDto> inquiryStudyUserList(
+            @RequestParam(name = "studyId") Long studyId,
+            @RequestParam(name = "leaderNickname") String leaderNickname
+    ) {
+        List<StudyUser> studyUserList = studyService.loadStudyUserListByStudyIdAsLeader(studyId, leaderNickname);
+        return studyUserList.stream()
+                .map(studyUser -> modelMapper.map(studyUser, StudyUserResponseDto.class))
+                .collect(Collectors.toList());
     }
 
     @PostMapping("/study/user")
-    public void joinStudyUser(
+    public BasicResponseDto joinStudyUser(
             @RequestBody JoinStudyUserDto joinStudyUserDto
-            ) {
+    ) {
         if (!studyService.existsStudyByRecruitId(joinStudyUserDto.getRecruitId())) {
             studyService.create(
                     joinStudyUserDto.getRecruitId(),
@@ -44,13 +71,15 @@ public class StudyController {
         }
 
         studyService.join(joinStudyUserDto.getRecruitId(), joinStudyUserDto.getFollowerNickname());
+        return new BasicResponseDto(true);
     }
 
     @PutMapping("/study/user")
-    public void evictStudyUser(
-            @RequestBody RequestStudyUserDto requestStudyUserDto
+    public BasicResponseDto evictStudyUser(
+            @RequestParam(name = "studyUserId") Long studyUserId
     ) {
-        studyService.evict(requestStudyUserDto.getStudyUserId());
+        studyService.evict(studyUserId);
+        return new BasicResponseDto(true);
     }
 
 }

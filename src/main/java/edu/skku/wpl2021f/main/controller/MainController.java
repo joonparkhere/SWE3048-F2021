@@ -16,4 +16,9 @@ public class MainController {
         return "profile";
     }
 
+    @GetMapping("/sample-study")
+    public String sampleStudy() {
+        return "sample-study";
+    }
+
 }
