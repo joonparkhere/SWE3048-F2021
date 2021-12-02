@@ -4,13 +4,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>Main</title>
+    <title>Profile</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/css/profile.css">
-    <%--    <script type="application/javascript" src="/js/"></script>--%>
+    <script type="application/javascript" src="/js/profile.js"></script>
 </head>
 
 <body>
@@ -29,6 +30,8 @@
         </c:if>
 
         <c:if test="${not empty user}">
+            <h2 id="nickname">${user.getNickname()}</h2>
+
             <div class="col">
                 <div class="row-2">
                     <ul class="nav nav-tabs" id="list-tab" role="tablist">
@@ -40,123 +43,23 @@
                         </li>
                     </ul>
                 </div>
+
+                <div id="inquiryStudy-fail" class="alert alert-danger" role="alert">
+                    Fail to inquiry...
+                </div>
+
                 <div class="row-10">
                     <div class="tab-content" id="nav-tabContent">
                         <div class="tab-pane fade show active" id="list-progress" role="tabpanel" aria-labelledby="list-progress-list">
-                            <div class="row">
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 01 제목</h5>
-                                            <p class="card-text">게시글 01 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 02 제목</h5>
-                                            <p class="card-text">게시글 02 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 03 제목</h5>
-                                            <p class="card-text">게시글 03 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 04 제목</h5>
-                                            <p class="card-text">게시글 04 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 05 제목</h5>
-                                            <p class="card-text">게시글 05 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 06 제목</h5>
-                                            <p class="card-text">게시글 06 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 07 제목</h5>
-                                            <p class="card-text">게시글 07 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3 study-card">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">게시글 08 제목</h5>
-                                            <p class="card-text">게시글 08 내용</p>
-                                            <a href="#" class="btn btn-primary">자세히 보기</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <div class="row" id="progress-contents"></div>
                         </div>
 
                         <div class="tab-pane fade" id="list-complete" role="tabpanel" aria-labelledby="list-complete-list">
-
+                            <div class="row" id="complete-contents"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-<%--            <ul class="nav nav-tabs">--%>
-<%--                <li class="nav-item">--%>
-<%--                    <a class="nav-link active" id="tab-home-tab" href="#tab-home">Home</a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item">--%>
-<%--                    <a class="nav-link" id="tab-setting-tab" href="#tab-setting">Link</a>--%>
-<%--                </li>--%>
-<%--                <li class="nav-item">--%>
-<%--                    <a class="nav-link disabled" href="#">Disabled</a>--%>
-<%--                </li>--%>
-<%--            </ul>--%>
-
-
-<%--            <div class="row">--%>
-<%--                <div class="col-4">--%>
-<%--                    <div class="list-group" id="list-tab" role="tablist">--%>
-<%--                        <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>--%>
-<%--                        <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">Profile</a>--%>
-<%--                        <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">Messages</a>--%>
-<%--                        <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Settings</a>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--                <div class="col-8">--%>
-<%--                    <div class="tab-content" id="nav-tabContent">--%>
-<%--                        <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">Home Contents</div>--%>
-<%--                        <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">...</div>--%>
-<%--                        <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">...</div>--%>
-<%--                        <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">Settings Contents</div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
         </c:if>
     </div>
 
