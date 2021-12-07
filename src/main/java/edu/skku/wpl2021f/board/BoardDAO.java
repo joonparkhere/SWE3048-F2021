@@ -60,11 +60,11 @@ public class BoardDAO {
 	}
 	
 	public ArrayList<BoardDTO> getList(int pageNumber) {
-		String SQL = "SELECT * FROM BOARD WHERE boardID < ? AND boardAvailable = 1 ORDER BY boardID DESC LIMIT 10";
+		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			pstmt.setInt(1, (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardDTO board = new BoardDTO();
@@ -85,10 +85,10 @@ public class BoardDAO {
 	}
 	
 	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BOARD WHERE boardID < ? AND boardAvailable = 1 ORDER BY boardID DESC LIMIT 10";
+		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
+			pstmt.setInt(1, (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return true;
