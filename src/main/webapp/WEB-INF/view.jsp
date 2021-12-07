@@ -3,6 +3,8 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="edu.skku.wpl2021f.board.BoardDAO" %>
 <%@ page import="edu.skku.wpl2021f.board.BoardDTO" %>
+<%@ page import="edu.skku.wpl2021f.card.CardDTO"%>
+<%@ page import="edu.skku.wpl2021f.card.CardDAO"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +37,7 @@
 		boardID = Integer.parseInt(request.getParameter("boardID"));
 	}
 	BoardDTO board = new BoardDAO().getBoard(boardID);
+	CardDTO card = new CardDAO().getCard(boardID);
 %>
 
 <!-- navbar -->
@@ -67,32 +70,13 @@
             </div>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Community<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Free Board<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Q&A</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Front-End
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">HTML</a>
-              <a class="dropdown-item" href="#">CSS</a>
-              <a class="dropdown-item" href="#">JavaScript</a>
-              <a class="dropdown-item" href="#">JQuery</a>
-            </div>
-          </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Back-End
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">PHP</a>
-              <a class="dropdown-item" href="#">JSP</a>
-              <a class="dropdown-item" href="#">Node.js</a>
-              <a class="dropdown-item" href="#">MySQL</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Recruiting</a>
           </li>
          </ul>
       </div>
@@ -109,33 +93,35 @@
       		</thead>
       		<tbody>
       			<tr>
-      				<td><b>Author</b></td>
-      				<td colspan="2"><%= board.getUserNickname() %></td>
+      				<td style="width:200px;"><b>Author</b></td>
+      				<td colspan="2" style="text-align:left;"><%= board.getUserNickname() %></td>
       			</tr>
       			<tr>
       				<td><b>Date</b></td>
-      				<td colspan="2"><%= board.getBoardDate() %></td>
+      				<td colspan="2" style="text-align:left;"><%= board.getBoardDate() %></td>
       			</tr>
       			<tr>
-      				<td rowspan="3"><b>Content</b></td>
-      				<tr>
-      					<td class="card" colspan="2" style="text-align:left;">
-      						<h5 class="card-title">Card title</h5>
-    						<p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      					</td>
-      				</tr>
-      				<tr>
-      					<td colspan="2" style="min-height:200px; text-align:left;"><%= board.getBoardContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
-      				</tr>
+      				<td><b>Content</b></td>
+      				<td colspan="2" style="min-height:200px; text-align:left;"><%= board.getBoardContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></td>
       			</tr>
       		</tbody>
       	</table>
-      	<a href="board.jsp" class="btn btn-success">List</a>
+      	<div class="card mt-5 mb-4" style="text-align:center; vertical-align:middle; width:600px; height:300px; margin:0 auto;">
+			<h5 class="card-header card-title"><%= card.getCardTitle() %></h5>
+			<p class="card-text"><%= card.getCardContent() %></p>
+		</div>
+      </div>
+      <div class="mb-5 row" style="margin:0 auto;">
+      	<div>
+      		<a href="board.jsp" class="btn btn-success">List</a>
+      	</div>
 <%
 	if (userID != null && userID.equals(board.getUserID())) {
 %>
-		<a href="update.jsp?boardID=<%= boardID %>" class="btn btn-success">Update</a>
-		<a onclick="return confirm('Are you sure you want to delete?')" href="deleteAction.jsp?boardID=<%= boardID %>" class="btn btn-success">Delete</a>
+		<div style="margin-left:auto;">
+			<a href="update.jsp?boardID=<%= boardID %>" class="btn btn-success">Update</a>
+			<a onclick="return confirm('Are you sure you want to delete?')" href="deleteAction.jsp?boardID=<%= boardID %>" class="btn btn-success">Delete</a>
+		</div>
 <%
 	}
 %>
@@ -143,7 +129,7 @@
     </section>
     
     <!-- comment -->
-    <div class="container mb-5">
+    <div class="container">
 		<div class="card card-header">
 	        <i class="fa fa-comment">Comment</i>
 		</div>
