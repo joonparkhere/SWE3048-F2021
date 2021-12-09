@@ -136,7 +136,7 @@
       	</table>
       </div>
       
-      <a href="post.jsp" class="btn btn-success" role="button" aria-pressed="true" style="margin:0 auto;">Create</a>
+      <a href="post.jsp?boardIdentity=<%= boardIdentity %>" class="btn btn-success" role="button" aria-pressed="true" style="margin:0 auto;">Create</a>
     </section>
 
     <!-- pagination -->
@@ -146,29 +146,29 @@
 	if (pageNumber == 1) {
 %>
         <li class="page-item disabled">
-        	<a class="page-link" href="#">Previous</a>
+        	<a class="page-link">Previous</a>
 <%
 	}
 	else {
 %>
         <li class="page-item">
-        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber - 1%>">Previous</a>
+        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber - 1%>&boardIdentity=1">Previous</a>
 <%
 	}
 %>
         </li>
-        <li class="page-item active"><a class="page-link" href="board.jsp?pageNumber=<%= pageNumber%>"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
+        <li class="page-item active"><a class="page-link" href="board.jsp?pageNumber=<%= pageNumber%>&boardIdentity=1"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
 <% 
 	if (boardDAO.nextPage(pageNumber + 1)) {
 %> 
         <li class="page-item">
-        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber + 1%>">Next</a>
+        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber + 1%>&boardIdentity=1">Next</a>
 <%
 	}
 	else {
 %>
         <li class="page-item disabled">
-        	<a class="page-link" href="#">Next</a>
+        	<a class="page-link">Next</a>
 <%
 	}
 %>
