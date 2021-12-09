@@ -5,6 +5,9 @@
 <%@ page import="edu.skku.wpl2021f.board.BoardDTO" %>
 <%@ page import="edu.skku.wpl2021f.card.CardDTO"%>
 <%@ page import="edu.skku.wpl2021f.card.CardDAO"%>
+<%@ page import="edu.skku.wpl2021f.comment.CommentDTO"%>
+<%@ page import="edu.skku.wpl2021f.comment.CommentDAO"%>
+<%@ page import="java.util.ArrayList" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,8 +39,14 @@
 	if (request.getParameter("boardID") != null) {
 		boardID = Integer.parseInt(request.getParameter("boardID"));
 	}
-	BoardDTO board = new BoardDAO().getBoard(boardID);
+	int boardIdentity = 1;
+	if (request.getParameter("boardIdentity") != null) {
+		boardIdentity = Integer.parseInt(request.getParameter("boardIdentity"));
+	}
+	BoardDTO board = new BoardDAO().getBoard(boardID, boardIdentity);
 	CardDTO card = new CardDAO().getCard(boardID);
+	CommentDAO commentDAO = new CommentDAO();
+	ArrayList<CommentDTO> list = commentDAO.getList(boardID, boardIdentity);
 %>
 
 <!-- navbar -->
@@ -69,15 +78,47 @@
 %>
             </div>
           </li>
+<%
+	if (boardIdentity == 1) {
+%>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Free Board<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Q&A</a>
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Recruiting</a>
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
           </li>
+<%
+	}
+	else if (boardIdentity == 2) {
+%>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+          </li>
+<%
+	}
+	else {
+%>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
+          </li>
+<%
+	}
+%>
          </ul>
       </div>
     </nav>
@@ -106,21 +147,27 @@
       			</tr>
       		</tbody>
       	</table>
+<%
+	if (boardIdentity == 3) {
+%>
       	<div class="card mt-5 mb-4" style="text-align:center; vertical-align:middle; width:600px; height:300px; margin:0 auto;">
 			<h5 class="card-header card-title"><%= card.getCardTitle() %></h5>
 			<p class="card-text"><%= card.getCardContent() %></p>
 		</div>
+<%
+	}
+%>
       </div>
       <div class="mb-5 row" style="margin:0 auto;">
       	<div>
-      		<a href="board.jsp" class="btn btn-success">List</a>
+      		<a href="board.jsp?boardIdentity=<%= boardIdentity %>" class="btn btn-success">List</a>
       	</div>
 <%
 	if (userID != null && userID.equals(board.getUserID())) {
 %>
 		<div style="margin-left:auto;">
-			<a href="update.jsp?boardID=<%= boardID %>" class="btn btn-success">Update</a>
-			<a onclick="return confirm('Are you sure you want to delete?')" href="deleteAction.jsp?boardID=<%= boardID %>" class="btn btn-success">Delete</a>
+			<a href="update.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Update</a>
+			<a onclick="return confirm('Are you sure you want to delete?')" href="deleteAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Delete</a>
 		</div>
 <%
 	}
@@ -130,44 +177,39 @@
     
     <!-- comment -->
     <div class="container">
-		<div class="card card-header">
-	        <i class="fa fa-comment">Comment</i>
-		</div>
-		<div class="card card-body mb-5">
-			<ul class="list-group list-group-flush">
-			    <li class="list-group-item">
-					<textarea class="form-control" id="comment" rows="3" placeholder="Leave a comment"></textarea>
-					<button type="button" class="btn btn-primary mt-3" onClick="javascript:addReply();">Post</button>
-			    </li>
-			</ul>
-		</div>
+    	<form method="post" action="commentAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
+			<div class="card card-header">
+		        <i class="fa fa-comment">Comment</i>
+			</div>
+			<div class="card card-body mb-5">
+				<ul class="list-group list-group-flush">
+				    <li class="list-group-item">
+						<textarea class="form-control" name="commentContent" rows="3" placeholder="Leave a comment"></textarea>
+						<input type="submit" class="btn btn-primary mt-3" value="Post">
+				    </li>
+				</ul>
+			</div>
+		</form>
 		
+<%
+	for (int i = 0; i < list.size(); i++) {
+%>
 		<div class="card card-header bg-light">
 			<table>
 				<tr>
-					<td><font size="4"><%= userID %></font></td>
+					<td><font size="4"><%= list.get(i).getUserNickname() %></font></td>
 				</tr>
 				<tr>
-					<td><font size="2"><%= board.getBoardDate() %></font></td>
+					<td><font size="2"><%= list.get(i).getCommentDate() %></font></td>
 				</tr>
 			</table>
 	    </div>
 	    <div class="card card-body mb-2">
-			<p class="card-text">ㅇㅇㅇ</p>
+			<p class="card-text"><%= list.get(i).getCommentContent() %></p>
 		</div>
-		<div class="card card-header bg-light">
-			<table>
-				<tr>
-					<td><font size="4"><%= userID %></font></td>
-				</tr>
-				<tr>
-					<td><font size="2"><%= board.getBoardDate() %></font></td>
-				</tr>
-			</table>
-	    </div>
-	    <div class="card card-body mb-2">
-			<p class="card-text">ㅇㅇㅇ</p>
-		</div>
+<%
+	}
+%>
 	</div>
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
