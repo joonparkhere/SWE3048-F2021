@@ -25,10 +25,11 @@ public class BoardDAO {
 		return "";
 	}
 	
-	public int getNext() {
-		String SQL = "SELECT boardID FROM BOARD ORDER BY boardID DESC";
+	public int getNext(int boardIdentity) {
+		String SQL = "SELECT boardID FROM BOARD WHERE boardIdentity = ? ORDER BY boardID DESC";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardIdentity);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return rs.getInt(1)+1;
@@ -40,12 +41,12 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	public int write(String boardTitle, String userID, String userNickname, String boardContent) {
+	public int write(int boardIdentity, String boardTitle, String userID, String userNickname, String boardContent) {
 		String SQL = "INSERT INTO BOARD VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, getNext());
-			pstmt.setInt(2, getNext());
+			pstmt.setInt(1, getNext(boardIdentity));
+			pstmt.setInt(2, boardIdentity);
 			pstmt.setString(3, boardTitle);
 			pstmt.setString(4, userID);
 			pstmt.setString(5, userNickname);
@@ -59,12 +60,13 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	public ArrayList<BoardDTO> getList(int pageNumber) {
-		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 ORDER BY boardID DESC LIMIT 10 OFFSET ?";
+	public ArrayList<BoardDTO> getList(int pageNumber, int boardIdentity) {
+		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, (pageNumber - 1) * 10);
+			pstmt.setInt(1, boardIdentity);
+			pstmt.setInt(2, (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				BoardDTO board = new BoardDTO();
@@ -84,11 +86,12 @@ public class BoardDAO {
 		return list;
 	}
 	
-	public boolean nextPage(int pageNumber) {
-		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 ORDER BY boardID DESC LIMIT 10 OFFSET ?";
+	public boolean nextPage(int pageNumber, int boardIdentity) {
+		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
-			pstmt.setInt(1, (pageNumber - 1) * 10);
+			pstmt.setInt(1, boardIdentity);
+			pstmt.setInt(2, (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				return true;
@@ -99,11 +102,12 @@ public class BoardDAO {
 		return false;
 	}
 	
-	public BoardDTO getBoard(int boardID) {
-		String SQL = "SELECT * FROM BOARD WHERE boardID = ?";
+	public BoardDTO getBoard(int boardID, int boardIdentity) {
+		String SQL = "SELECT * FROM BOARD WHERE boardID = ? AND boardIdentity = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, boardIdentity);
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
 				BoardDTO board = new BoardDTO();
@@ -123,13 +127,14 @@ public class BoardDAO {
 		return null;
 	}
 	
-	public int update(int boardID, String boardTitle, String boardContent) {
-		String SQL = "UPDATE BOARD SET boardTitle = ?, boardContent = ? WHERE boardID = ?";
+	public int update(int boardID, int boardIdentity, String boardTitle, String boardContent) {
+		String SQL = "UPDATE BOARD SET boardTitle = ?, boardContent = ? WHERE boardID = ? AND boardIdentity = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1, boardTitle);
 			pstmt.setString(2, boardContent);
 			pstmt.setInt(3, boardID);
+			pstmt.setInt(4, boardIdentity);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -137,11 +142,12 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	public int delete(int boardID) {
-		String SQL = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ?";
+	public int delete(int boardID, int boardIdentity) {
+		String SQL = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ? AND boardIdentity = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, boardIdentity);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
