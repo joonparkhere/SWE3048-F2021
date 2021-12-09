@@ -22,6 +22,10 @@
 	if (session.getAttribute("userID") != null) {
 		userID = (String) session.getAttribute("userID");
 	}
+	int boardIdentity = 1;
+	if (request.getParameter("boardIdentity") != null) {
+		boardIdentity = Integer.parseInt(request.getParameter("boardIdentity"));
+	}
 	int pageNumber = 1;
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
@@ -30,7 +34,7 @@
 
 <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="index.jsp"><b>Study Group</b></a>
+      <a class="navbar-brand" href="board.jsp"><b>Study Group</b></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -57,34 +61,47 @@
 %>
             </div>
           </li>
+<%
+	if (boardIdentity == 1) {
+%>
           <li class="nav-item active">
-            <a class="nav-link" href="#">Community<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Q&A</a>
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Front-End
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">HTML</a>
-              <a class="dropdown-item" href="#">CSS</a>
-              <a class="dropdown-item" href="#">JavaScript</a>
-              <a class="dropdown-item" href="#">JQuery</a>
-            </div>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
           </li>
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Back-End
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">PHP</a>
-              <a class="dropdown-item" href="#">JSP</a>
-              <a class="dropdown-item" href="#">Node.js</a>
-              <a class="dropdown-item" href="#">MySQL</a>
-            </div>
+<%
+	}
+	else if (boardIdentity == 2) {
+%>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
           </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+          </li>
+<%
+	}
+	else {
+%>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
+          </li>
+<%
+	}
+%>
          </ul>
       </div>
     </nav>
@@ -92,8 +109,8 @@
     <!-- content -->
     <section class="container">
       
-      <div class="row mt-5 mb-3">
-      	<table class="table" style="text-align:center;">
+      <div class="mt-5 mb-3">
+      	<table class="table" style="text-align:center;" style="border:1px solid red;">
       		<thead>
       			<th text-align:center;">#</th>
       			<th text-align:center;">Title</th>
@@ -119,7 +136,7 @@
       	</table>
       </div>
       
-      <a href="post.jsp" class="btn btn-success" role="button" aria-pressed="true">Create</a>
+      <a href="post.jsp" class="btn btn-success" role="button" aria-pressed="true" style="margin:0 auto;">Create</a>
     </section>
 
     <!-- pagination -->
@@ -135,17 +152,17 @@
 	else {
 %>
         <li class="page-item">
-        	<a class="page-link" href="index.jsp?pageNumber=<%= pageNumber - 1%>">Previous</a>
+        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber - 1%>">Previous</a>
 <%
 	}
 %>
         </li>
-        <li class="page-item active"><a class="page-link" href="#"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
+        <li class="page-item active"><a class="page-link" href="board.jsp?pageNumber=<%= pageNumber%>"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
 <% 
 	if (boardDAO.nextPage(pageNumber + 1)) {
 %> 
         <li class="page-item">
-        	<a class="page-link" href="index.jsp?pageNumber=<%= pageNumber + 1%>">Next</a>
+        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber + 1%>">Next</a>
 <%
 	}
 	else {
