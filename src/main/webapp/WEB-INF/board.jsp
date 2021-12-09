@@ -30,6 +30,8 @@
 	if (request.getParameter("pageNumber") != null) {
 		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
 	}
+	BoardDAO boardDAO = new BoardDAO();
+	ArrayList<BoardDTO> list = boardDAO.getList(pageNumber, boardIdentity);
 %>
 
 <!-- navbar -->
@@ -119,13 +121,11 @@
       		</thead>
       		<tbody>
 <%
-	BoardDAO boardDAO = new BoardDAO();
-	ArrayList<BoardDTO> list = boardDAO.getList(pageNumber);
 	for (int i = 0; i < list.size(); i++) {
 %>
 				<tr>
 					<td><%= list.get(i).getBoardID() %></td>
-					<td><a href="view.jsp?boardID=<%= list.get(i).getBoardID() %>"><%= list.get(i).getBoardTitle() %></a></td>
+					<td><a href="view.jsp?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= boardIdentity %>"><%= list.get(i).getBoardTitle() %></a></td>
 					<td><%= list.get(i).getUserNickname() %></td>
 					<td><%= list.get(i).getBoardDate() %></td>
 				</tr>
@@ -152,17 +152,17 @@
 	else {
 %>
         <li class="page-item">
-        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber - 1%>&boardIdentity=1">Previous</a>
+        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber - 1%>&boardIdentity=<%= boardIdentity %>">Previous</a>
 <%
 	}
 %>
         </li>
-        <li class="page-item active"><a class="page-link" href="board.jsp?pageNumber=<%= pageNumber%>&boardIdentity=1"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
+        <li class="page-item active"><a class="page-link" href="board.jsp?pageNumber=<%= pageNumber%>&boardIdentity=<%= boardIdentity %>"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
 <% 
-	if (boardDAO.nextPage(pageNumber + 1)) {
+	if (boardDAO.nextPage(pageNumber + 1, boardIdentity)) {
 %> 
         <li class="page-item">
-        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber + 1%>&boardIdentity=1">Next</a>
+        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber + 1%>&boardIdentity=<%= boardIdentity %>">Next</a>
 <%
 	}
 	else {
