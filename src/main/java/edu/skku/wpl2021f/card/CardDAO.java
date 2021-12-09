@@ -11,14 +11,13 @@ public class CardDAO {
 	Connection conn = DatabaseUtil.getConnection();
 	ResultSet rs = null;
 	
-	public int write(int boardID, int boardIdentity, String cardTitle, String cardContent) {
-		String SQL = "INSERT INTO CARD VALUES (?, ?, ?, ?)";
+	public int write(int boardID, String cardTitle, String cardContent) {
+		String SQL = "INSERT INTO CARD VALUES (?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
-			pstmt.setInt(2, boardIdentity);
-			pstmt.setString(3, cardTitle);
-			pstmt.setString(4, cardContent);
+			pstmt.setString(2, cardTitle);
+			pstmt.setString(3, cardContent);
 			return pstmt.executeUpdate();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -35,14 +34,27 @@ public class CardDAO {
 			if (rs.next()) {
 				CardDTO card = new CardDTO();
 				card.setBoardID(rs.getInt(1));
-				card.setBoardIdentity(rs.getInt(2));
-				card.setCardTitle(rs.getString(3));
-				card.setCardContent(rs.getString(4));
+				card.setCardTitle(rs.getString(2));
+				card.setCardContent(rs.getString(3));
 				return card;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public int update(int boardID, String cardTitle, String cardContent) {
+		String SQL = "UPDATE CARD SET cardTitle = ?, cardContent = ? WHERE boardID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, cardTitle);
+			pstmt.setString(2, cardContent);
+			pstmt.setInt(3, boardID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
 	}
 }
