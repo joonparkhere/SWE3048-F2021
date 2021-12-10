@@ -19,6 +19,12 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <title>Study Group</title>
+<style type="text/css">
+	a, a:hover {
+		color:white;
+		text-decoration:none;
+	}
+</style>
 </head>
 <body>
 <%
@@ -67,7 +73,7 @@
 	if (userID == null) {
 %>
               <a class="dropdown-item" href="join.jsp">Sign up</a>
-              <a class="dropdown-item" href="WEB-INF/login.jsp">Sign in</a>
+              <a class="dropdown-item" href="login.jsp">Sign in</a>
 <%
 	}
 	else {
@@ -200,7 +206,16 @@
 					<td><font size="4"><%= list.get(i).getUserNickname() %></font></td>
 				</tr>
 				<tr>
-					<td><font size="2"><%= list.get(i).getCommentDate() %></font></td>
+					<td><font size="2"><%= list.get(i).getCommentDate() %>&nbsp
+<%
+		if (list.get(i).getUserID().equals(userID)) {
+%>
+						<span class="badge badge-dark hyperlink"><a onclick="return confirm('Are you sure you want to delete?')" href="commentDeleteAction.jsp?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= list.get(i).getBoardIdentity() %>&commentID=<%= list.get(i).getCommentID() %>">X</a></span>
+<%
+		}
+%>
+						</font>
+					</td>
 				</tr>
 			</table>
 	    </div>
