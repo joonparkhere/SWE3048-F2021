@@ -16,7 +16,7 @@
 <body>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="/">SKUDY</a>
+    <a class="navbar-brand" href="/">Study Group</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
@@ -48,7 +48,7 @@
         <div class="btn-group" role="group" aria-label="Profile Control">
             <c:if test="${empty user}">
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
-                <jsp:include page="login.jsp" />
+                <jsp:include page="../login.jsp" />
             </c:if>
 
             <c:if test="${not empty user}">
