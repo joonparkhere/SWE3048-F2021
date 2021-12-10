@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
+<%@ page import="edu.skku.wpl2021f.board.BoardDAO" %>
+<%@ page import="edu.skku.wpl2021f.board.BoardDTO" %>
+<%@ page import="edu.skku.wpl2021f.card.CardDAO" %>
+<%@ page import="edu.skku.wpl2021f.card.CardDTO" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,21 +26,36 @@
 	else {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
-		script.println("alert('Sign in to create a post!');");
-		script.println("history.back();");
+		script.println("alert('Sign in to update a post!');");
+		script.println("location.href = 'login.jsp");
 		script.println("</script>");
 		script.close();
 		return;
+	}
+	int boardID = 0;
+	if (request.getParameter("boardID") != null) {
+		boardID = Integer.parseInt(request.getParameter("boardID"));
 	}
 	int boardIdentity = 1;
 	if (request.getParameter("boardIdentity") != null) {
 		boardIdentity = Integer.parseInt(request.getParameter("boardIdentity"));
 	}
+	BoardDTO board = new BoardDAO().getBoard(boardID, boardIdentity);
+	CardDTO card = new CardDAO().getCard(boardID);
+	if (!userID.equals(board.getUserID())) {
+		PrintWriter script = response.getWriter();
+		script.println("<script>");
+		script.println("alert('No permission allowed!');");
+		script.println("location.href = 'board.jsp");
+		script.println("</script>");
+		script.close();
+		return;
+	}
 %>
 
 <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="board.jsp"><b>Study Group</b></a>
+      <a class="navbar-brand" href="WEB-INF/board.jsp"><b>Study Group</b></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -48,62 +67,18 @@
               My Page
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-<%
-	if (userID == null) {
-%>
-              <a class="dropdown-item" href="join.jsp">Sign up</a>
-              <a class="dropdown-item" href="WEB-INF/login.jsp">Sign in</a>
-<%
-	}
-	else {
-%>
-              <a class="dropdown-item" href="logoutAction.jsp">Sign out</a>
-<%
-	}
-%>
+				<a class="dropdown-item" href="logoutAction.jsp">Sign out</a>
             </div>
           </li>
-<%
-	if (boardIdentity == 1) {
-%>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="#">Free Board<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+            <a class="nav-link" href="#">Q&A</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+            <a class="nav-link" href="#">Recruiting</a>
           </li>
-<%
-	}
-	else if (boardIdentity == 2) {
-%>
-          <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
-          </li>
-<%
-	}
-	else {
-%>
-          <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
-          </li>
-<%
-	}
-%>
          </ul>
       </div>
     </nav>
@@ -111,7 +86,7 @@
     <!-- content -->
     <section class="container">      
       <div class="mt-5">
-      	<form method="post" action="postAction.jsp?boardIdentity=<%= boardIdentity %>">
+      	<form method="post" action="WEB-INF/updateAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
 	      	<table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
 	      		<thead>
 	      			<tr>
@@ -120,10 +95,10 @@
 	      		</thead>
 	      		<tbody>
 	      			<tr>
-	      				<td><input type="text" class="form-control" placeholder="Title" name="boardTitle" maxlength="50"></td>
+	      				<td><input type="text" class="form-control" placeholder="Title" name="boardTitle" maxlength="50" value="<%= board.getBoardTitle() %>"></td>
 	      			</tr>
 	      			<tr>
-	      				<td><textarea class="form-control" placeholder="Content" name="boardContent" maxlength="2048" style="height: 400px;"></textarea></td>
+	      				<td><textarea class="form-control" placeholder="Content" name="boardContent" maxlength="2048" style="height: 400px;"><%= board.getBoardContent() %></textarea></td>
 	      			</tr>
 	      		</tbody>	      		
 	      	</table>
@@ -131,13 +106,13 @@
 	if (boardIdentity == 3) { 
 %>
 	      	<div class="mt-2 mb-5" style="text-align:center; vertical-align:middle; width:600px; height:300px; margin:0 auto;">
-				<input type="text" class="form-control card-header card-title" placeholder="Card Title" name="cardTitle" maxlength="50">
-				<textarea class="form-control card-text" placeholder="Card Content" name="cardContent" maxlength="2048" style="height: 250px;"></textarea>
+				<input type="text" class="form-control card-header card-title" placeholder="Card Title" name="cardTitle" maxlength="50" value="<%= card.getCardTitle() %>">
+				<textarea class="form-control card-text" placeholder="Card Content" name="cardContent" maxlength="2048" style="height: 250px;"><%= card.getCardContent() %></textarea>
 			</div>
 <%
 	}
 %>
-	      	<input type="submit" class="btn btn-success pull-right" value="Post">
+	      	<input type="submit" class="btn btn-success pull-right" value="Update">
       	</form>
       </div>
     </section>

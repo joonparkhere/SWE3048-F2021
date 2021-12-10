@@ -36,7 +36,7 @@
 
 <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="board.jsp"><b>Study Group</b></a>
+      <a class="navbar-brand" href="WEB-INF/board.jsp"><b>Study Group</b></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -67,39 +67,39 @@
 	if (boardIdentity == 1) {
 %>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
           </li>
 <%
 	}
 	else if (boardIdentity == 2) {
 %>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
           </li>
 <%
 	}
 	else {
 %>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
           </li>
 <%
 	}
@@ -125,7 +125,7 @@
 %>
 				<tr>
 					<td><%= list.get(i).getBoardID() %></td>
-					<td><a href="view.jsp?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= boardIdentity %>"><%= list.get(i).getBoardTitle() %></a></td>
+					<td><a href="WEB-INF/view.jsp?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= boardIdentity %>"><%= list.get(i).getBoardTitle() %></a></td>
 					<td><%= list.get(i).getUserNickname() %></td>
 					<td><%= list.get(i).getBoardDate() %></td>
 				</tr>
@@ -136,7 +136,7 @@
       	</table>
       </div>
       
-      <a href="post.jsp?boardIdentity=<%= boardIdentity %>" class="btn btn-success" role="button" aria-pressed="true" style="margin:0 auto;">Create</a>
+      <a href="WEB-INF/post.jsp?boardIdentity=<%= boardIdentity %>" class="btn btn-success" role="button" aria-pressed="true" style="margin:0 auto;">Create</a>
     </section>
 
     <!-- pagination -->
@@ -152,17 +152,17 @@
 	else {
 %>
         <li class="page-item">
-        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber - 1%>&boardIdentity=<%= boardIdentity %>">Previous</a>
+        	<a class="page-link" href="WEB-INF/board.jsp?pageNumber=<%= pageNumber - 1%>&boardIdentity=<%= boardIdentity %>">Previous</a>
 <%
 	}
 %>
         </li>
-        <li class="page-item active"><a class="page-link" href="board.jsp?pageNumber=<%= pageNumber%>&boardIdentity=<%= boardIdentity %>"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
+        <li class="page-item active"><a class="page-link" href="WEB-INF/board.jsp?pageNumber=<%= pageNumber%>&boardIdentity=<%= boardIdentity %>"><%= pageNumber %><span class="sr-only">(current)</span></a></li>
 <% 
 	if (boardDAO.nextPage(pageNumber + 1, boardIdentity)) {
 %> 
         <li class="page-item">
-        	<a class="page-link" href="board.jsp?pageNumber=<%= pageNumber + 1%>&boardIdentity=<%= boardIdentity %>">Next</a>
+        	<a class="page-link" href="WEB-INF/board.jsp?pageNumber=<%= pageNumber + 1%>&boardIdentity=<%= boardIdentity %>">Next</a>
 <%
 	}
 	else {

@@ -41,14 +41,14 @@ public class BoardDAO {
 		return -1;
 	}
 	
-	public int write(int boardIdentity, String boardTitle, String userID, String userNickname, String boardContent) {
+	public int write(int boardIdentity, String boardTitle, Long userID, String userNickname, String boardContent) {
 		String SQL = "INSERT INTO BOARD VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, getNext(boardIdentity));
 			pstmt.setInt(2, boardIdentity);
 			pstmt.setString(3, boardTitle);
-			pstmt.setString(4, userID);
+			pstmt.setLong(4, userID);
 			pstmt.setString(5, userNickname);
 			pstmt.setString(6, getDate());
 			pstmt.setString(7, boardContent);
@@ -73,7 +73,7 @@ public class BoardDAO {
 				board.setBoardID(rs.getInt(1));
 				board.setBoardIdentity(rs.getInt(2));
 				board.setBoardTitle(rs.getString(3));
-				board.setUserID(rs.getString(4));
+				board.setUserID(rs.getLong(4));
 				board.setUserNickname(rs.getString(5));
 				board.setBoardDate(rs.getString(6));
 				board.setBoardContent(rs.getString(7));
@@ -114,7 +114,7 @@ public class BoardDAO {
 				board.setBoardID(rs.getInt(1));
 				board.setBoardIdentity(rs.getInt(2));
 				board.setBoardTitle(rs.getString(3));
-				board.setUserID(rs.getString(4));
+				board.setUserID(rs.getLong(4));
 				board.setUserNickname(rs.getString(5));
 				board.setBoardDate(rs.getString(6));
 				board.setBoardContent(rs.getString(7));

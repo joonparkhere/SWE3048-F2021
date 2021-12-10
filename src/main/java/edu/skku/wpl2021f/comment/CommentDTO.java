@@ -4,7 +4,7 @@ public class CommentDTO {
 	int boardID;
 	int boardIdentity;
 	int commentID;
-	String userID;
+	Long userID;
 	String userNickname;
 	String commentDate;
 	String commentContent;
@@ -28,10 +28,10 @@ public class CommentDTO {
 	public void setCommentID(int commentID) {
 		this.commentID = commentID;
 	}
-	public String getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
-	public void setUserID(String userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 	public String getUserNickname() {

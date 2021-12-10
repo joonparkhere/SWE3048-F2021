@@ -43,14 +43,14 @@ public class CommentDAO {
 		return -1;
 	}
 	
-	public int write(int boardID, int boardIdentity, String userID, String userNickname, String commentContent) {
+	public int write(int boardID, int boardIdentity, Long userID, String userNickname, String commentContent) {
 		String SQL = "INSERT INTO COMMENT VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);
 			pstmt.setInt(2, boardIdentity);
 			pstmt.setInt(3, getNext(boardID, boardIdentity));
-			pstmt.setString(4, userID);
+			pstmt.setLong(4, userID);
 			pstmt.setString(5, userNickname);
 			pstmt.setString(6, getDate());
 			pstmt.setString(7, commentContent);
@@ -75,7 +75,7 @@ public class CommentDAO {
 				comment.setBoardID(rs.getInt(1));
 				comment.setBoardIdentity(rs.getInt(2));
 				comment.setCommentID(rs.getInt(3));
-				comment.setUserID(rs.getString(4));
+				comment.setUserID(rs.getLong(4));
 				comment.setUserNickname(rs.getString(5));
 				comment.setCommentDate(rs.getString(6));
 				comment.setCommentContent(rs.getString(7));

@@ -5,7 +5,7 @@ public class BoardDTO {
 	int boardID;
 	int boardIdentity;
 	String boardTitle;
-	String userID;
+	Long userID;
 	String userNickname;
 	String boardDate;
 	String boardContent;
@@ -29,10 +29,10 @@ public class BoardDTO {
 	public void setBoardTitle(String boardTitle) {
 		this.boardTitle = boardTitle;
 	}
-	public String getUserID() {
+	public Long getUserID() {
 		return userID;
 	}
-	public void setUserID(String userID) {
+	public void setUserID(Long userID) {
 		this.userID = userID;
 	}
 	public String getUserNickname() {

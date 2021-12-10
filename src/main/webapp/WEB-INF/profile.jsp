@@ -26,12 +26,7 @@
 
     <div class="contents">
         <c:if test="${empty user}">
-            <div class="alert alert-danger" role="alert">
-                <h4 class="alert-heading">Not Logged in!</h4>
-                <p>This page needs user credentials, but You may not log-in yet.</p>
-                <hr>
-                <p class="mb-0">If you want to progress, please login.</p>
-            </div>
+            <jsp:include page="non-login-alter.jsp" />
         </c:if>
 
         <c:if test="${not empty user}">

@@ -19,13 +19,13 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=1">Free Board</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">QnA</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=2">Q&A</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=3">Recruiting</a>
             </li>
         </ul>
 

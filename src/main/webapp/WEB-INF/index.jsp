@@ -41,7 +41,7 @@
     <div class="contents">
         <div class="card mb-3">
             <h5 class="card-header">
-                <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=3">Recruiting</a>
             </h5>
             <div class="card-body">
                 <div class="row">
@@ -69,7 +69,7 @@
                             <div class="card-body">
                                 <h5 class="card-title"><%= card.getCardTitle() %></h5>
                                 <p class="card-text"><%= card.getCardContent() %></p>
-                                <a href="view.jsp?boardID=<%= card.getBoardID() %>&boardIdentity=3" class="btn btn-primary">Details</a>
+                                <a href="${pageContext.request.contextPath}/view?boardID=<%= card.getBoardID() %>&boardIdentity=3" class="btn btn-primary">Details</a>
                             </div>
                         </div>
                     </div>
@@ -85,7 +85,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <h5 class="card-header">
-                        <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=1">Free Board</a>
                     </h5>
                     <ul class="list-group">
                         <%
@@ -104,7 +104,7 @@
                                 BoardDTO board = freeBoardList.get(i);
                         %>
                         <li class="list-group-item">
-                            <a class="nav-link disabled" href="view.jsp?boardID=<%= board.getBoardID()%>&boardIdentity=1"><%= board.getBoardTitle() %></a>
+                            <a class="nav-link disabled" href="${pageContext.request.contextPath}/view?boardID=<%= board.getBoardID() %>&boardIdentity=1"><%= board.getBoardTitle() %></a>
                         </li>
                         <%
                                 }
@@ -117,7 +117,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <h5 class="card-header">
-                        <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=2">Q&A</a>
                     </h5>
                     <ul class="list-group">
                         <%
@@ -136,7 +136,7 @@
                                 BoardDTO board = qnaBoardList.get(i);
                         %>
                         <li class="list-group-item">
-                            <a class="nav-link disabled" href="view.jsp?boardID=<%= board.getBoardID()%>&boardIdentity=2"><%= board.getBoardTitle() %></a>
+                            <a class="nav-link disabled" href="${pageContext.request.contextPath}/view?boardID=<%= board.getBoardID() %>&boardIdentity=2"><%= board.getBoardTitle() %></a>
                         </li>
                         <%
                                 }

@@ -57,7 +57,7 @@
 
 <!-- navbar -->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="board.jsp"><b>Study Group</b></a>
+      <a class="navbar-brand" href="WEB-INF/board.jsp"><b>Study Group</b></a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -88,39 +88,39 @@
 	if (boardIdentity == 1) {
 %>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=1">Free Board<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
           </li>
 <%
 	}
 	else if (boardIdentity == 2) {
 %>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=2">Q&A<span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
           </li>
 <%
 	}
 	else {
 %>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="WEB-INF/board.jsp?pageNumber=1&boardIdentity=3">Recruiting<span class="sr-only">(current)</span></a>
           </li>
 <%
 	}
@@ -166,14 +166,14 @@
       </div>
       <div class="mb-5 row" style="margin:0 auto;">
       	<div>
-      		<a href="board.jsp?boardIdentity=<%= boardIdentity %>" class="btn btn-success">List</a>
+      		<a href="WEB-INF/board.jsp?boardIdentity=<%= boardIdentity %>" class="btn btn-success">List</a>
       	</div>
 <%
 	if (userID != null && userID.equals(board.getUserID())) {
 %>
 		<div style="margin-left:auto;">
-			<a href="update.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Update</a>
-			<a onclick="return confirm('Are you sure you want to delete?')" href="deleteAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Delete</a>
+			<a href="WEB-INF/update.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Update</a>
+			<a onclick="return confirm('Are you sure you want to delete?')" href="WEB-INF/deleteAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Delete</a>
 		</div>
 <%
 	}
@@ -183,7 +183,7 @@
     
     <!-- comment -->
     <div class="container">
-    	<form method="post" action="commentAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
+    	<form method="post" action="WEB-INF/commentAction.jsp?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
 			<div class="card card-header">
 		        <i class="fa fa-comment">Comment</i>
 			</div>
@@ -210,7 +210,7 @@
 <%
 		if (list.get(i).getUserID().equals(userID)) {
 %>
-						<span class="badge badge-dark hyperlink"><a onclick="return confirm('Are you sure you want to delete?')" href="commentDeleteAction.jsp?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= list.get(i).getBoardIdentity() %>&commentID=<%= list.get(i).getCommentID() %>">X</a></span>
+						<span class="badge badge-dark hyperlink"><a onclick="return confirm('Are you sure you want to delete?')" href="WEB-INF/commentDeleteAction.jsp?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= list.get(i).getBoardIdentity() %>&commentID=<%= list.get(i).getCommentID() %>">X</a></span>
 <%
 		}
 %>
