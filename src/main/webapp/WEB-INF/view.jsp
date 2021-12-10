@@ -19,6 +19,7 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
 <title>Study Group</title>
 <style type="text/css">
 	a, a:hover {
@@ -42,6 +43,10 @@
 	CommentDAO commentDAO = new CommentDAO();
 	ArrayList<CommentDTO> list = commentDAO.getList(boardID, boardIdentity);
 %>
+
+	<script type="text/javascript" charset="utf-8">
+		sessionStorage.setItem("context-path", "${pageContext.request.contextPath}");
+	</script>
 
 	<!-- navbar -->
 	<jsp:include page="nav.jsp" />
@@ -124,7 +129,32 @@
 			<div class="card card-header bg-light">
 				<table>
 					<tr>
-						<td><font size="4"><%= list.get(i).getUserNickname() %></font></td>
+						<td class="comment-nickname-header">
+							<font size="4"><%= list.get(i).getUserNickname() %></font>
+
+							<c:if test="${user.getId() eq postWriterID}">
+								<button class="btn btn btn-outline-info btn-sm study-invite" id="invite-<%= list.get(i).getUserID() %>" type="button" data-toggle="modal" data-target="#modal-<%= list.get(i).getUserID() %>"
+										value="<%= boardID %>,<%= card.getCardTitle() %>,<%= card.getCardContent() %>,<%= board.getUserNickname() %>,<%= list.get(i).getUserNickname() %>,<%= list.get(i).getUserID() %>">
+									Invite
+								</button>
+
+								<div class="modal fade bd-example-modal-sm" id="modal-<%= list.get(i).getUserID() %>" tabindex="-1" role="dialog" aria-hidden="true">
+									<div class="modal-dialog modal-sm">
+										<div class="modal-content">
+											<div class="modal-header">
+												<h5 class="modal-title">Invitation Response</h5>
+												<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+													<span aria-hidden="true">&times;</span>
+												</button>
+											</div>
+											<div class="modal-body">
+												<p id="modal-body-<%= list.get(i).getUserID() %>"></p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</c:if>
+						</td>
 					</tr>
 					<tr>
 						<td><font size="2"><%= list.get(i).getCommentDate() %>&nbsp
@@ -150,5 +180,6 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="application/javascript" src="${pageContext.request.contextPath}/js/view.js"></script>
 </body>
 </html>

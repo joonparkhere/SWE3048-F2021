@@ -112,7 +112,7 @@ async function addManageModal(nickname, id, title) {
     requestSuccessAlert.hide()
 
     let requestFailAlert = $(`#request-fail-${id}`)
-    requestSuccessAlert.hide()
+    requestFailAlert.hide()
 
     // change study state as complete when button is clicked
     $(`#complete-${id}`).click(async () => {

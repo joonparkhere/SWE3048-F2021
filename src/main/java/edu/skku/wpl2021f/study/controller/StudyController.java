@@ -6,6 +6,7 @@ import edu.skku.wpl2021f.study.dto.*;
 import edu.skku.wpl2021f.study.domain.StudyService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,19 +31,21 @@ public class StudyController {
     }
 
     @PutMapping("/study")
-    public BasicResponseDto completeStudy(
+    public ResponseEntity<Object> completeStudy(
             @RequestParam(name = "studyId") Long studyId
     ) {
         studyService.complete(studyId);
-        return new BasicResponseDto(true);
+        return ResponseEntity.ok()
+                .build();
     }
 
     @DeleteMapping("/study")
-    public BasicResponseDto removeStudy(
+    public ResponseEntity<Object> removeStudy(
             @RequestParam(name = "studyId") Long studyId
     ) {
         studyService.remove(studyId);
-        return new BasicResponseDto(true);
+        return ResponseEntity.ok()
+                .build();
     }
 
     @GetMapping("/study/user")
@@ -57,7 +60,7 @@ public class StudyController {
     }
 
     @PostMapping("/study/user")
-    public BasicResponseDto joinStudyUser(
+    public ResponseEntity<Object> joinStudyUser(
             @RequestBody JoinStudyUserDto joinStudyUserDto
     ) {
         if (!studyService.existsStudyByRecruitId(joinStudyUserDto.getRecruitId())) {
@@ -71,15 +74,17 @@ public class StudyController {
         }
 
         studyService.join(joinStudyUserDto.getRecruitId(), joinStudyUserDto.getFollowerNickname());
-        return new BasicResponseDto(true);
+        return ResponseEntity.ok()
+                .build();
     }
 
     @PutMapping("/study/user")
-    public BasicResponseDto evictStudyUser(
+    public ResponseEntity<Object> evictStudyUser(
             @RequestParam(name = "studyUserId") Long studyUserId
     ) {
         studyService.evict(studyUserId);
-        return new BasicResponseDto(true);
+        return ResponseEntity.ok()
+                .build();
     }
 
 }
