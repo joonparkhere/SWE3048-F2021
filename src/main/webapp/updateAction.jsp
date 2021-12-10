@@ -78,7 +78,7 @@
 		else {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'board.jsp';");
+			script.println("location.href = 'view.jsp?boardID=" + boardID + "&boardIdentity=" + boardIdentity + "';");
 			script.println("</script>");
 			script.close();
 			return;
@@ -97,7 +97,7 @@
 		else {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
-			script.println("location.href = 'board.jsp';");
+			script.println("location.href = 'view.jsp?boardID=" + boardID + "&boardIdentity=" + boardIdentity + "';");
 			script.println("</script>");
 			script.close();
 			return;
