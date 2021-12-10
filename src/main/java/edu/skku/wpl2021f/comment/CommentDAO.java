@@ -87,4 +87,18 @@ public class CommentDAO {
 		}
 		return list;
 	}
+	
+	public int delete(int boardID, int boardIdentity, int commentID) {
+		String SQL = "UPDATE COMMENT SET commentAvailable = 0 WHERE boardID = ? AND boardIdentity = ? AND commentID = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, boardIdentity);
+			pstmt.setInt(3, commentID);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
 }
