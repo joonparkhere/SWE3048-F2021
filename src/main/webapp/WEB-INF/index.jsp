@@ -20,11 +20,13 @@
 
 <body>
 <%
+    // get posts from each board for preview
     BoardDAO boardDAO = new BoardDAO();
     List<BoardDTO> freeBoardList = boardDAO.getList(1, 1);
     List<BoardDTO> qnaBoardList = boardDAO.getList(1, 2);
     List<BoardDTO> recruitBoardList = boardDAO.getList(1, 3);
 
+    // get additional information at a recruit board post
     CardDAO cardDAO = new CardDAO();
     List<CardDTO> cardList = new ArrayList<>();
     for (BoardDTO boardDTO : recruitBoardList) {
@@ -39,11 +41,12 @@
     <div class="contents">
         <div class="card mb-3">
             <h5 class="card-header">
-                <a class="nav-link" href="#">Recruiting Study</a>
+                <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=3">Recruiting</a>
             </h5>
             <div class="card-body">
                 <div class="row">
                     <%
+                        // add study information for preview up to 8 elements
                         int cardListLen = cardList.size();
                         if (cardListLen == 0) {
                     %>
@@ -82,10 +85,11 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <h5 class="card-header">
-                        <a class="nav-link" href="#">Free Board</a>
+                        <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=1">Free Board</a>
                     </h5>
                     <ul class="list-group">
                         <%
+                            // add free board posts for preview up to 5 elements
                             int freeBoardListLen = freeBoardList.size();
                             if (freeBoardListLen == 0) {
                         %>
@@ -113,10 +117,11 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <h5 class="card-header">
-                        <a class="nav-link" href="#">Topic Board</a>
+                        <a class="nav-link" href="board.jsp?pageNumber=1&boardIdentity=2">Q&A</a>
                     </h5>
                     <ul class="list-group">
                         <%
+                            // add QnA board posts for preview up to five elements
                             int qnaBoardListLen = qnaBoardList.size();
                             if (qnaBoardListLen == 0) {
                         %>

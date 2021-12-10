@@ -1,20 +1,24 @@
-import {contractABI, contractAddress} from "../contract/contractInfo.js";
+// import deployed smart contract information
+import {contractABI, contractAddress} from "../contract/contractInfo.js"
 
 $(document).ready(async () => {
 
-    $("#inquiryStudy-fail").hide()
-
+    // get context path from session storage
     let contextPath = sessionStorage.getItem("context-path")
+
+    let inquiryStudyFailAlert = $("#inquiryStudy-fail")
+    inquiryStudyFailAlert.hide()
+
     let nickname = $("#nickname").html()
 
-    console.log(contextPath)
-
+    // get study which is in progress as dto
     let progressStudyResponse = await fetch(`${contextPath}/study?nickname=${nickname}&complete=false`)
     if (!progressStudyResponse.ok) {
-        $("#inquiryStudy-fail").show()
+        inquiryStudyFailAlert.show()
         return
     }
 
+    // convert study dto to element
     let progressStudyList = await progressStudyResponse.json()
     for (let study of progressStudyList) {
         await addProgressStudyCard(
@@ -22,12 +26,14 @@ $(document).ready(async () => {
         )
     }
 
+    // get study which is complete as dto
     let completeStudyResponse = await fetch(`${contextPath}/study?nickname=${nickname}&complete=true`)
     if (!completeStudyResponse.ok) {
-        $("#inquiryStudy-fail").show()
+        inquiryStudyFailAlert.show()
         return
     }
 
+    // convert study dto to element
     let completeStudyList = await completeStudyResponse.json()
     for (let study of completeStudyList) {
         await addCompleteStudyCard(
@@ -37,6 +43,7 @@ $(document).ready(async () => {
 
 })
 
+// add in progress study information as an card element
 async function addProgressStudyCard(nickname, id, title, description, createdDate, leaderNickname) {
     let date = new Date(createdDate)
     let startDate = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate()
@@ -56,17 +63,17 @@ async function addProgressStudyCard(nickname, id, title, description, createdDat
         </div>
     `)
 
-    if (!isLeader) {
-        return
-    }
+    if (!isLeader) return
 
-    await addManageLogic(nickname, id, title)
+    // add some logic to manage study when a leader
+    await addManageModal(nickname, id, title)
 }
 
-async function addManageLogic(nickname, id, title) {
+// add manage modal which is able to change study state, and evict study member
+async function addManageModal(nickname, id, title) {
     let contextPath = sessionStorage.getItem("context-path")
-    let element = $("#progress-contents")
 
+    let element = $("#progress-contents")
     element.append(`
         <div class="modal fade" id="manage-` + id + `" tabindex="-1" role="dialog" aria-hidden="true">
           <div class="modal-dialog" role="document">
@@ -101,39 +108,37 @@ async function addManageLogic(nickname, id, title) {
         </div>
     `)
 
-    $(`#request-success-${id}`).hide()
-    $(`#request-fail-${id}`).hide()
+    let requestSuccessAlert = $(`#request-success-${id}`)
+    requestSuccessAlert.hide()
 
+    let requestFailAlert = $(`#request-fail-${id}`)
+    requestSuccessAlert.hide()
+
+    // change study state as complete when button is clicked
     $(`#complete-${id}`).click(async () => {
         let response = await fetch(`${contextPath}/study?studyId=${id}`, {
             method: "PUT"
         })
 
-        if (!response.ok) {
-            $(`#request-fail-${id}`).show()
-            return
-        }
-
-        $(`#request-success-${id}`).show()
+        if (!response.ok) requestFailAlert.show()
+        else requestSuccessAlert.show()
     })
+
+    // remove study when button is clicked
     $(`#delete-${id}`).click(async () => {
         let response = await fetch(`${contextPath}/study?studyId=${id}`, {
             method: "DELETE"
         })
 
-        if (!response.ok) {
-            $(`#request-fail-${id}`).show()
-            return
-        }
-
-        $(`#request-success-${id}`).show()
+        if (!response.ok) requestFailAlert.show()
+        else requestSuccessAlert.show()
     })
 
+    // get user who is participated in study as dto
     let studyUserResponse = await fetch(`${contextPath}/study/user?studyId=${id}&leaderNickname=${nickname}`)
-    if (!studyUserResponse.ok) {
-        $("#inquiryStudy-fail").show()
-    }
+    if (!studyUserResponse.ok) $("#inquiryStudy-fail").show()
 
+    // convert study dto to list element
     let studyUserList = await studyUserResponse.json()
     for (let studyUser of studyUserList) {
         let listElement = $(`#studyUser-${id}`)
@@ -143,22 +148,21 @@ async function addManageLogic(nickname, id, title) {
                 <button type="button" class="btn btn-warning btn-sm evict-` + id + `" value="` + studyUser.id + `">Evict</button>
             </li>
         `)
-
-        $(`.evict-${id}`).click(async (event) => {
-            let studyUserId = event.target.value
-            let response = await fetch(`${contextPath}/study/user?studyUserId=${studyUserId}`, {
-                method: "PUT"
-            })
-
-            if (!response.ok) {
-                $(`#request-fail-${id}`).show()
-            }
-
-            $(`#request-success-${id}`).show()
-        })
     }
+
+    // evict study member when button is clicked
+    $(`.evict-${id}`).click(async (event) => {
+        let studyUserId = event.target.value
+        let response = await fetch(`${contextPath}/study/user?studyUserId=${studyUserId}`, {
+            method: "PUT"
+        })
+
+        if (!response.ok) requestFailAlert.show()
+        else requestSuccessAlert.show()
+    })
 }
 
+// add complete study information as an card element
 async function addCompleteStudyCard(id, title, description, lastModifiedDate) {
     let date = new Date(lastModifiedDate)
     let finishDate = date.getFullYear() + ". " + (date.getMonth() + 1) + ". " + date.getDate()
@@ -177,29 +181,39 @@ async function addCompleteStudyCard(id, title, description, lastModifiedDate) {
         </div>
     `)
 
-    $(`#certificate-${id}`).click(async () => {
+    // issue certificate when button is clicked
+    let certificateBtn = $(`#certificate-${id}`)
+    certificateBtn.click(async () => {
+        // init web3 object
         const web3 = new Web3(window.ethereum);
+
+        // confirm current web3 object's network is proper
         const netId = await web3.eth.net.getId()
         if (netId !== 3) {
             alert("Please Change to Ropsten Network!")
             return
         }
 
+        // get user account information
         const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
         const account = accounts[0];
+
+        // prepare instance of smart contract
         const instance = new web3.eth.Contract(contractABI, contractAddress);
 
-        let response = await instance.methods
-            .awardItem(
+        // send transaction to issue certification
+        let response = await instance.methods.issue(
                 account, "http://localhost:8080"
             ).send({
                 from: account
             })
 
-        $(`#certificate-${id}`).parent().append(`
+        // add hyper link to view certification transaction
+        certificateBtn.parent().append(`
             <a class="btn btn-success" href="https://ropsten.etherscan.io/tx/${response.transactionHash}" target="_blank">Check Certificate</a>
         `)
 
-        $(`#certificate-${id}`).remove()
+        // delete issue-able button
+        certificateBtn.remove()
     })
 }

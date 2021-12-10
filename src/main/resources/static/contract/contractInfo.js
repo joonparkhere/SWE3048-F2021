@@ -1,3 +1,4 @@
+// smart contract application binary interface information
 const contractABI = [
     {
         "inputs": [],
@@ -101,30 +102,6 @@ const contractABI = [
         "inputs": [
             {
                 "internalType": "address",
-                "name": "player",
-                "type": "address"
-            },
-            {
-                "internalType": "string",
-                "name": "tokenURI",
-                "type": "string"
-            }
-        ],
-        "name": "awardItem",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
                 "name": "owner",
                 "type": "address"
             }
@@ -181,6 +158,30 @@ const contractABI = [
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "player",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "tokenURI",
+                "type": "string"
+            }
+        ],
+        "name": "issue",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -359,6 +360,8 @@ const contractABI = [
         "type": "function"
     }
 ]
-const contractAddress = "0x39a11CB7C9B5AA43CA9e8e81dd7403CF9047C5A2"
+
+// smart contract deployed address
+const contractAddress = "0x1542560AE466b30f3B45D9c571967023Ec96800b"
 
 export {contractABI, contractAddress}

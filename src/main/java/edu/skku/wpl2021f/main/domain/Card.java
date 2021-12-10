@@ -9,16 +9,16 @@ import javax.persistence.Id;
 import javax.persistence.Lob;
 
 //@Entity
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Card {
-
-    @Id @Column(name = "boardID")
-    int boardId;
-
-    @Column(name = "cardTitle")
-    String cardTitle;
-
-    @Lob @Column(name = "cardContent")
-    String cardContent;
-
-}
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//public class Card {
+//
+//    @Id @Column(name = "boardID")
+//    int boardId;
+//
+//    @Column(name = "cardTitle")
+//    String cardTitle;
+//
+//    @Lob @Column(name = "cardContent")
+//    String cardContent;
+//
+//}

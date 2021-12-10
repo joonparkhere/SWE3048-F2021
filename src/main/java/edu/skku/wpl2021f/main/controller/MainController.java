@@ -21,9 +21,4 @@ public class MainController {
         return "sample-recruit";
     }
 
-//    @GetMapping("/board.jsp")
-//    public String board() {
-//        return "board";
-//    }
-
 }

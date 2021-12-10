@@ -1,6 +1,5 @@
 package edu.skku.wpl2021f.auth.principal;
 
-import edu.skku.wpl2021f.auth.principal.CustomOAuth2User;
 import lombok.Builder;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.util.Assert;
