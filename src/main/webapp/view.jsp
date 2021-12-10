@@ -67,7 +67,7 @@
 	if (userID == null) {
 %>
               <a class="dropdown-item" href="join.jsp">Sign up</a>
-              <a class="dropdown-item" href="login.jsp">Sign in</a>
+              <a class="dropdown-item" href="WEB-INF/login.jsp">Sign in</a>
 <%
 	}
 	else {

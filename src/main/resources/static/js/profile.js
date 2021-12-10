@@ -4,9 +4,12 @@ $(document).ready(async () => {
 
     $("#inquiryStudy-fail").hide()
 
+    let contextPath = sessionStorage.getItem("context-path")
     let nickname = $("#nickname").html()
 
-    let progressStudyResponse = await fetch(`http://localhost:8080/study?nickname=${nickname}&complete=false`)
+    console.log(contextPath)
+
+    let progressStudyResponse = await fetch(`${contextPath}/study?nickname=${nickname}&complete=false`)
     if (!progressStudyResponse.ok) {
         $("#inquiryStudy-fail").show()
         return
@@ -19,7 +22,7 @@ $(document).ready(async () => {
         )
     }
 
-    let completeStudyResponse = await fetch(`http://localhost:8080/study?nickname=${nickname}&complete=true`)
+    let completeStudyResponse = await fetch(`${contextPath}/study?nickname=${nickname}&complete=true`)
     if (!completeStudyResponse.ok) {
         $("#inquiryStudy-fail").show()
         return
@@ -61,6 +64,7 @@ async function addProgressStudyCard(nickname, id, title, description, createdDat
 }
 
 async function addManageLogic(nickname, id, title) {
+    let contextPath = sessionStorage.getItem("context-path")
     let element = $("#progress-contents")
 
     element.append(`
@@ -101,7 +105,7 @@ async function addManageLogic(nickname, id, title) {
     $(`#request-fail-${id}`).hide()
 
     $(`#complete-${id}`).click(async () => {
-        let response = await fetch(`http://localhost:8080/study?studyId=${id}`, {
+        let response = await fetch(`${contextPath}/study?studyId=${id}`, {
             method: "PUT"
         })
 
@@ -113,7 +117,7 @@ async function addManageLogic(nickname, id, title) {
         $(`#request-success-${id}`).show()
     })
     $(`#delete-${id}`).click(async () => {
-        let response = await fetch(`http://localhost:8080/study?studyId=${id}`, {
+        let response = await fetch(`${contextPath}/study?studyId=${id}`, {
             method: "DELETE"
         })
 
@@ -125,7 +129,7 @@ async function addManageLogic(nickname, id, title) {
         $(`#request-success-${id}`).show()
     })
 
-    let studyUserResponse = await fetch(`http://localhost:8080/study/user?studyId=${id}&leaderNickname=${nickname}`)
+    let studyUserResponse = await fetch(`${contextPath}/study/user?studyId=${id}&leaderNickname=${nickname}`)
     if (!studyUserResponse.ok) {
         $("#inquiryStudy-fail").show()
     }
@@ -142,7 +146,7 @@ async function addManageLogic(nickname, id, title) {
 
         $(`.evict-${id}`).click(async (event) => {
             let studyUserId = event.target.value
-            let response = await fetch(`http://localhost:8080/study/user?studyUserId=${studyUserId}`, {
+            let response = await fetch(`${contextPath}/study/user?studyUserId=${studyUserId}`, {
                 method: "PUT"
             })
 

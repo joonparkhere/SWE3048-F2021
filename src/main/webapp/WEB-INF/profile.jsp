@@ -11,13 +11,17 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.2.7-rc.0/web3.min.js"></script>
-    <link rel="stylesheet" href="/css/profile.css">
-    <script type="module" src="/js/profile.js"></script>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/profile.css">
+    <script type="module" src="${pageContext.request.contextPath}/js/profile.js"></script>
 </head>
 
 <body>
 
 <div>
+    <script type="text/javascript" charset="utf-8">
+        sessionStorage.setItem("context-path", "${pageContext.request.contextPath}");
+    </script>
+
     <jsp:include page="nav.jsp" />
 
     <div class="contents">
