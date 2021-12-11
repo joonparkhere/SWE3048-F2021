@@ -38,7 +38,7 @@
                     <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
                         <tbody>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="Title" name="boardTitle" maxlength="50"></td>
+                            <td><input type="text" class="form-control" placeholder="Title" name="boardTitle" maxlength="100"></td>
                         </tr>
                         <tr>
                             <td><textarea class="form-control" placeholder="Content" name="boardContent" maxlength="2048" style="height: 400px;"></textarea></td>
@@ -49,7 +49,7 @@
 	                    %>
                         <tbody>
                         <tr>
-                            <td><input type="text" class="form-control" placeholder="Study Title" name="cardTitle" maxlength="50"></td>
+                            <td><input type="text" class="form-control" placeholder="Study Title" name="cardTitle" maxlength="100"></td>
                         </tr>
                         <tr>
                             <td><textarea class="form-control" placeholder="Study-Group Information" name="cardContent" maxlength="2048" style="height: 150px;"></textarea></td>
