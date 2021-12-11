@@ -1,0 +1,16 @@
+.boardBackground {
+	background-image: url("../img/Leaf-Background.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	background-size: 100%;
+	height: 200px;
+	border: 1px solid white;
+}
+
+h1 {
+	margin-top: 60px;
+	text-align: center;
+	font-size: 50px;
+	Letter-spacing: 7px;
+	color: #EEEEEE;
+}

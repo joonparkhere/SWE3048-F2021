@@ -14,6 +14,7 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/background.css">
 <title>Study Group</title>
 </head>
 <body>
@@ -34,9 +35,28 @@
     <jsp:include page="nav.jsp" />
 
     <!-- content -->
-    <section class="container">
+    <section class="container-fluid">
 		<div class="mt-5 mb-3">
-			<table class="table" style="text-align:center;" style="border:1px solid red;">
+			<div class="boardBackground">
+			<%
+				if (boardIdentity == 1) {
+			%>
+				<h1>Free Board</h1>
+			<%
+				}
+				else if (boardIdentity == 2) {
+			%>
+				<h1>Q&A</h1>
+			<%
+				}
+				else {
+			%>
+				<h1>Recruiting</h1>
+			<%
+				}
+			%>
+			</div>
+			<table class="table" style="text-align:center;">
 				<thead>
 					<th text-align:center;">#</th>
 					<th text-align:center;">Title</th>
