@@ -132,6 +132,9 @@
 						<td class="comment-nickname-header">
 							<font size="4"><%= list.get(i).getUserNickname() %></font>
 
+							<%
+								if (boardIdentity == 3) {
+							%>
 							<c:if test="${user.getId() eq postWriterID}">
 								<button class="btn btn btn-outline-info btn-sm study-invite" id="invite-<%= list.get(i).getUserID() %>" type="button" data-toggle="modal" data-target="#modal-<%= list.get(i).getUserID() %>"
 										value="<%= boardID %>,<%= card.getCardTitle() %>,<%= card.getCardContent() %>,<%= board.getUserNickname() %>,<%= list.get(i).getUserNickname() %>,<%= list.get(i).getUserID() %>">
@@ -154,6 +157,9 @@
 									</div>
 								</div>
 							</c:if>
+							<%
+								}
+							%>
 						</td>
 					</tr>
 					<tr>
