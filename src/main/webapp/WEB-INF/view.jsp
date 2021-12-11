@@ -135,7 +135,8 @@
 							<%
 								if (boardIdentity == 3) {
 							%>
-							<c:if test="${user.getId() eq postWriterID}">
+							<c:set var="commentWriterID" value="<%= list.get(i).getUserID() %>"/>
+							<c:if test="${user.getId() eq postWriterID and postWriterID ne commentWriterID}">
 								<button class="btn btn btn-outline-info btn-sm study-invite" id="invite-<%= list.get(i).getUserID() %>" type="button" data-toggle="modal" data-target="#modal-<%= list.get(i).getUserID() %>"
 										value="<%= boardID %>,<%= card.getCardTitle() %>,<%= card.getCardContent() %>,<%= board.getUserNickname() %>,<%= list.get(i).getUserNickname() %>,<%= list.get(i).getUserID() %>">
 									Invite
@@ -164,7 +165,6 @@
 					</tr>
 					<tr>
 						<td><font size="2"><%= list.get(i).getCommentDate() %>&nbsp
-							<c:set var="commentWriterID" value="<%= list.get(i).getUserID() %>" />
 							<c:if test="${user.getId() eq commentWriterID}">
 								<span class="badge badge-dark hyperlink"><a onclick="return confirm('Are you sure you want to delete?')" href="${pageContext.request.contextPath}/comment-delete-action?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= list.get(i).getBoardIdentity() %>&commentID=<%= list.get(i).getCommentID() %>">X</a></span>
 							</c:if>
