@@ -39,7 +39,6 @@
 		script.println("history.back();");
 		script.println("</script>");
 		script.close();
-		return;
 	}
 	else {
 		PrintWriter script = response.getWriter();
@@ -48,6 +47,5 @@
 		script.println("location.href = contextPath + '/view?boardID=" + boardID + "&boardIdentity=" + boardIdentity + "';");
 		script.println("</script>");
 		script.close();
-//		return;
 	}
 %>
