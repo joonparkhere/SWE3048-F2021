@@ -134,11 +134,10 @@
 					<tr>
 						<td class="comment-nickname-header">
 							<font size="4"><%= list.get(i).getUserNickname() %></font>
-
+							<c:set var="commentWriterID" value="<%= list.get(i).getUserID() %>"/>
 							<%
 								if (boardIdentity == 3) {
 							%>
-							<c:set var="commentWriterID" value="<%= list.get(i).getUserID() %>"/>
 							<c:if test="${user.getId() eq postWriterID and postWriterID ne commentWriterID}">
 								<button class="btn btn btn-outline-info btn-sm study-invite" id="invite-<%= list.get(i).getUserID() %>" type="button" data-toggle="modal" data-target="#modal-<%= list.get(i).getUserID() %>"
 										value="<%= boardID %>,<%= card.getCardTitle() %>,<%= card.getCardContent() %>,<%= board.getUserNickname() %>,<%= list.get(i).getUserNickname() %>,<%= list.get(i).getUserID() %>">
@@ -185,6 +184,8 @@
 			%>
 		</c:if>
 	</div>
+	
+	<jsp:include page="foot.jsp" />
 
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
