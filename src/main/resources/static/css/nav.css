@@ -1,0 +1,41 @@
+.navbar {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 2vh 1vh;
+    padding: 2vh 2vw;
+}
+
+.nav-element {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 2vh 2vw;
+    background-color: rgba(255, 255, 255, 0.01);
+    border-radius: 0.5rem;
+    box-shadow: 8px 8px 15px black;
+}
+
+.navbar-wrap {
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}
+
+.navbar-list {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+}
+
+.navbar-list li {
+    display: inline;
+    margin-right: 3vw;
+}
+
+.navbar-list li a {
+    display: inline-block;
+    font-size: 3vh;
+    text-decoration: none;
+}

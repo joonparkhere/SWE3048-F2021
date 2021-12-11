@@ -36,12 +36,67 @@
 %>
 
 <div>
-    <jsp:include page="nav.jsp" />
+    <div class="intro">
+        <div class="nav-login">
+            <div class="btn-group" role="group">
+                <c:if test="${empty user}">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
+                    <jsp:include page="login.jsp" />
+                </c:if>
+
+                <c:if test="${not empty user}">
+                    <a type="button" class="btn btn-primary" href="${pageContext.request.contextPath}/profile">Profile</a>
+                    <a type="button" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
+                </c:if>
+            </div>
+        </div>
+
+        <div class="welcome-message">
+            <p>👀 Study With We!</p>
+        </div>
+
+        <div id="intro-slide" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Share your interest!</h1>
+                        <p>Post current study interest in Free-board or QnA-board. There are many users who have same interests. Communicate with users and Learn about it!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Develop your interest!</h1>
+                        <p>Recruit study member who want to participate in group for studying members' common interests. With followers or leader, keep learn about your interest!</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h1>Certificate your interest!</h1>
+                        <p>When complete study, you can issue certification as a prove what you studied. Thanks to blockchain, you can own NFT in your crypto wallet!</p>
+                    </div>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#intro-slide" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#intro-slide" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </div>
+
 
     <div class="contents">
         <div class="card mb-3">
             <h5 class="card-header">
-                <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=3">Recruiting</a>
+                <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=3">Develop your interest</a>
             </h5>
             <div class="card-body">
                 <div class="row">
@@ -85,7 +140,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <h5 class="card-header">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=1">Free Board</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=1">Talk about your interest</a>
                     </h5>
                     <ul class="list-group">
                         <%
@@ -117,7 +172,7 @@
             <div class="col-md-6">
                 <div class="card mb-3">
                     <h5 class="card-header">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=2">Q&A</a>
+                        <a class="nav-link" href="${pageContext.request.contextPath}/board?boardIdentity=2">Discuss about your interest</a>
                     </h5>
                     <ul class="list-group">
                         <%
@@ -147,6 +202,8 @@
             </div>
         </div>
     </div>
+
+    <jsp:include page="foot.jsp" />
 </div>
 
 </body>

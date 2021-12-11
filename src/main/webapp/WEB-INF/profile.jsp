@@ -63,6 +63,7 @@
         </c:if>
     </div>
 
+    <jsp:include page="foot.jsp" />
 </div>
 
 </body>
