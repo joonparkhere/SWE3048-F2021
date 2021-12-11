@@ -35,7 +35,7 @@
 	<!-- navbar -->
 	<jsp:include page="nav.jsp" />
 
-    <!-- content -->
+    <!-- main content -->
     <section class="container">
 		<c:if test="${empty user}">
 			<jsp:include page="non-login-alter.jsp" />

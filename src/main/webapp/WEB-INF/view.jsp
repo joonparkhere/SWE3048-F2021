@@ -55,12 +55,13 @@
 	<!-- navbar -->
 	<jsp:include page="nav.jsp" />
 
-    <!-- content -->
+    <!-- main content -->
     <section class="container">
 		<c:if test="${empty user}">
 			<jsp:include page="non-login-alter.jsp" />
 		</c:if>
 
+		<!-- post -->
 		<c:if test="${not empty user}">
 			<div class="mt-5 mb-5">
 				<table class="table" style="text-align:center;">
@@ -111,6 +112,8 @@
 					}
 				%>
 			</div>
+			
+			<!-- button for editing a post -->
 			<div class="mb-5 row button-left">
 				<div>
 					<a href="${pageContext.request.contextPath}/board?boardIdentity=<%= boardIdentity %>" class="btn btn-success">List</a>
@@ -144,6 +147,7 @@
     <!-- comment -->
     <div class="container mb-5">
 		<c:if test="${not empty user}">
+			<!-- section for writing comment -->
 			<%
 				if (board.getBoardAvailable() == 1) {
 			%>
@@ -162,6 +166,8 @@
 					</ul>
 				</div>
 			</form>
+			
+			<!-- section for viewing comments -->
 			<%
 				}
 				for (int i = 0; i < list.size(); i++) {

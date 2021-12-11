@@ -33,12 +33,13 @@
 	ArrayList<BoardDTO> list = boardDAO.getList(pageNumber, boardIdentity);
 %>
 
-    <!-- navbar -->
+	<!-- navbar -->
     <jsp:include page="nav.jsp" />
 
-    <!-- content -->
+    <!-- main content -->
     <section class="container-fluid">
 		<div class="mt-5 mb-3">
+			<!-- title board -->
 			<div class="boardBackground">
 			<%
 				if (boardIdentity == 1) {
@@ -58,6 +59,7 @@
 				}
 			%>
 			</div>
+			<!-- board table -->
 			<table class="table" style="text-align:center;">
 				<thead>
 					<th text-align:center;">#</th>

@@ -11,6 +11,7 @@
 	int boardIdentity = Integer.parseInt(request.getParameter("boardIdentity"));
 	String commentContent = "";
 
+	/* manage input variables */
 	if (request.getParameter("userID") != "") {
 		userID = Long.parseLong(request.getParameter("userID"));
 	}
@@ -20,6 +21,8 @@
 	if (request.getParameter("commentContent") != "") {
 		commentContent = (String) request.getParameter("commentContent");
 	}
+	
+	/* manage unfilled variables */
 	if (commentContent == "") {
 		PrintWriter script = response.getWriter();
 		script.println("<script>");
@@ -30,6 +33,7 @@
 		return;
 	}
 
+	/* write comment with given variables */
 	CommentDAO comment = new CommentDAO();
 	int result = comment.write(boardID, boardIdentity, userID, userNickname, commentContent);
 	if (result == -1) {

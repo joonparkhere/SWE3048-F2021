@@ -11,6 +11,7 @@ public class CardDAO {
 	Connection conn = DatabaseUtil.getConnection();
 	ResultSet rs = null;
 	
+	/* method to write cart title and card content */
 	public int write(int boardID, String cardTitle, String cardContent) {
 		String SQL = "INSERT INTO CARD VALUES (?, ?, ?)";
 		try {
@@ -25,6 +26,7 @@ public class CardDAO {
 		return -1;
 	}
 	
+	/* method to get the card information */
 	public CardDTO getCard(int boardID) {
 		String SQL = "SELECT * FROM CARD WHERE boardID = ?";
 		try {
@@ -44,6 +46,7 @@ public class CardDAO {
 		return null;
 	}
 	
+	/* method to update the card */
 	public int update(int boardID, String cardTitle, String cardContent) {
 		String SQL = "UPDATE CARD SET cardTitle = ?, cardContent = ? WHERE boardID = ?";
 		try {

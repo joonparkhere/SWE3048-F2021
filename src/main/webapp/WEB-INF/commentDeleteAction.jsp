@@ -8,6 +8,7 @@
 	int boardIdentity = Integer.parseInt(request.getParameter("boardIdentity"));
 	int commentID = Integer.parseInt(request.getParameter("commentID"));
 	
+	/* delete the comment */
 	CommentDAO comment = new CommentDAO();
 	int result = comment.delete(boardID, boardIdentity, commentID);
 	if (result == -1) {

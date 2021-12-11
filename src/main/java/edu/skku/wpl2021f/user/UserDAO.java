@@ -11,6 +11,7 @@ public class UserDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
+	/* method to sign up */
 	public int join(String userID, String userPassword, String userNickname) {
 		String SQL = "INSERT INTO USER VALUES (?, ?, ?)";
 		try {
@@ -26,6 +27,7 @@ public class UserDAO {
 		return -1;
 	}
 	
+	/* method to sign in */
 	public int login(String userID, String userPassword) {
 		String SQL = "SELECT userPassword FROM USER WHERE userID = ?";
 		try {
@@ -48,6 +50,7 @@ public class UserDAO {
 		return -2;
 	}
 	
+	/* method to find nickname of given userID */
 	public String findNickname(String userID) {
 		String SQL = "SELECT userNickname FROM USER WHERE userID = ?";
 		try {

@@ -11,6 +11,7 @@ public class BoardDAO {
 	Connection conn = DatabaseUtil.getConnection();
 	ResultSet rs = null;
 	
+	/* method to get write time */
 	public String getDate() {
 		String SQL = "SELECT NOW()";
 		try {
@@ -25,6 +26,7 @@ public class BoardDAO {
 		return "";
 	}
 	
+	/* method to get the boardID of the last post among the written posts */
 	public int getNext(int boardIdentity) {
 		String SQL = "SELECT boardID FROM BOARD WHERE boardIdentity = ? ORDER BY boardID DESC";
 		try {
@@ -41,6 +43,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
+	/* method to write a post */
 	public int write(int boardIdentity, String boardTitle, Long userID, String userNickname, String boardContent) {
 		String SQL = "INSERT INTO BOARD VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
@@ -60,6 +63,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
+	/* method to get the list of the written posts */
 	public ArrayList<BoardDTO> getList(int pageNumber, int boardIdentity) {
 		String SQL = "SELECT * FROM BOARD WHERE boardAvailable > 0 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
@@ -86,6 +90,7 @@ public class BoardDAO {
 		return list;
 	}
 	
+	/* method to check whether there is next page */
 	public boolean nextPage(int pageNumber, int boardIdentity) {
 		String SQL = "SELECT * FROM BOARD WHERE boardAvailable > 0 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		try {
@@ -102,6 +107,7 @@ public class BoardDAO {
 		return false;
 	}
 	
+	/* method to get the post information */
 	public BoardDTO getBoard(int boardID, int boardIdentity) {
 		String SQL = "SELECT * FROM BOARD WHERE boardID = ? AND boardIdentity = ?";
 		try {
@@ -127,6 +133,7 @@ public class BoardDAO {
 		return null;
 	}
 	
+	/* method to update the post */
 	public int update(int boardID, int boardIdentity, String boardTitle, String boardContent) {
 		String SQL = "UPDATE BOARD SET boardTitle = ?, boardContent = ? WHERE boardID = ? AND boardIdentity = ?";
 		try {
@@ -142,6 +149,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
+	/* method to delete the post */
 	public int delete(int boardID, int boardIdentity) {
 		String SQL = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ? AND boardIdentity = ?";
 		try {
@@ -155,6 +163,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
+	/* method to close the post */
 	public int close(int boardID, int boardIdentity) {
 		String SQL = "UPDATE BOARD SET boardAvailable = 2 WHERE boardID = ? AND boardIdentity = ?";
 		try {
@@ -168,6 +177,7 @@ public class BoardDAO {
 		return -1;
 	}
 	
+	/* method to open the post */
 	public int open(int boardID, int boardIdentity) {
 		String SQL = "UPDATE BOARD SET boardAvailable = 1 WHERE boardID = ? AND boardIdentity = ?";
 		try {

@@ -13,6 +13,7 @@
 	String cardTitle = "";
 	String cardContent = "";
 	
+	/* manage input variables */
 	if (request.getParameter("boardTitle") != "") {
 		boardTitle = (String) request.getParameter("boardTitle");
 	}
@@ -26,6 +27,13 @@
 		cardContent = (String) request.getParameter("cardContent");
 	}
 	
+	/*
+		manage unfilled variables
+		
+		boardIdentity == 1 : Free Board
+		boardIdentity == 2 : Q&A
+		boardIdentity == 3 : Recruiting
+	*/
 	if (boardIdentity == 3) {
 		if (boardTitle == "" || boardContent == "" || cardTitle == "" || cardContent == "") {
 			PrintWriter script = response.getWriter();
@@ -49,6 +57,7 @@
 		}
 	}
 	
+	/* Update with given variables */
 	BoardDAO boardDAO = new BoardDAO();
 	int boardResult = boardDAO.update(boardID, boardIdentity, boardTitle, boardContent);
 	if (boardIdentity == 3) {

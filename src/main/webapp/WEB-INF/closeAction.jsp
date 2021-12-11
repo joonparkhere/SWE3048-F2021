@@ -7,6 +7,7 @@
 	int boardID = Integer.parseInt(request.getParameter("boardID"));
 	int boardIdentity = Integer.parseInt(request.getParameter("boardIdentity"));
 	
+	/* close recruiting post */
 	BoardDAO boardDAO = new BoardDAO();
 	int result = boardDAO.close(boardID, boardIdentity);
 	if (result == -1) {

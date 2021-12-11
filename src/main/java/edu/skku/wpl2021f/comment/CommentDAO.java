@@ -12,6 +12,7 @@ public class CommentDAO {
 	Connection conn = DatabaseUtil.getConnection();
 	ResultSet rs = null;
 	
+	/* method to get write time */
 	public String getDate() {
 		String SQL = "SELECT NOW()";
 		try {
@@ -26,6 +27,7 @@ public class CommentDAO {
 		return "";
 	}
 	
+	/* method to get the commentID of the last post among the written comments */
 	public int getNext(int boardID, int boardIdentity) {
 		String SQL = "SELECT commentID FROM COMMENT WHERE boardID = ? AND boardIdentity = ? ORDER BY commentID DESC";
 		try {
@@ -43,6 +45,7 @@ public class CommentDAO {
 		return -1;
 	}
 	
+	/* method to write a comment */
 	public int write(int boardID, int boardIdentity, Long userID, String userNickname, String commentContent) {
 		String SQL = "INSERT INTO COMMENT VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		try {
@@ -62,6 +65,7 @@ public class CommentDAO {
 		return -1;
 	}
 	
+	/* method to get the list of the written comments */
 	public ArrayList<CommentDTO> getList(int boardID, int boardIdentity) {
 		String SQL = "SELECT * FROM COMMENT WHERE commentAvailable = 1 AND boardID = ? AND boardIdentity = ? ORDER BY commentID";
 		ArrayList<CommentDTO> list = new ArrayList<CommentDTO>();
@@ -88,6 +92,7 @@ public class CommentDAO {
 		return list;
 	}
 	
+	/* method to delete the comment */
 	public int delete(int boardID, int boardIdentity, int commentID) {
 		String SQL = "UPDATE COMMENT SET commentAvailable = 0 WHERE boardID = ? AND boardIdentity = ? AND commentID = ?";
 		try {
