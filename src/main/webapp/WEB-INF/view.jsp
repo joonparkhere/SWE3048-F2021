@@ -27,6 +27,9 @@
 		color:white;
 		text-decoration:none;
 	}
+	.card-content-mt {
+		margin-top:30px;
+	}
 </style>
 </head>
 <body>
@@ -102,7 +105,7 @@
 				%>
 				<div class="card mt-5 mb-4" style="text-align:center; vertical-align:middle; width:600px; height:300px; margin:0 auto;">
 					<h5 class="card-header card-title"><%= card.getCardTitle() %></h5>
-					<p class="card-text"><%= card.getCardContent() %></p>
+					<p class="card-text card-content-mt"><%= card.getCardContent() %></p>
 				</div>
 				<%
 					}
