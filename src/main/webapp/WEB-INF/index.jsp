@@ -37,19 +37,7 @@
 
 <div>
     <div class="intro">
-        <div class="nav-login">
-            <div class="btn-group" role="group">
-                <c:if test="${empty user}">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">Login</button>
-                    <jsp:include page="login.jsp" />
-                </c:if>
-
-                <c:if test="${not empty user}">
-                    <a type="button" class="btn btn-primary" href="${pageContext.request.contextPath}/profile">Profile</a>
-                    <a type="button" class="btn btn-outline-primary" href="${pageContext.request.contextPath}/logout">Logout</a>
-                </c:if>
-            </div>
-        </div>
+        <jsp:include page="nav.jsp" />
 
         <div class="welcome-message">
             <p>👀 Study With We!</p>
