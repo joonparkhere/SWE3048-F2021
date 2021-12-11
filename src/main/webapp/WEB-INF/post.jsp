@@ -12,6 +12,7 @@
 
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css">
 <title>Study Group</title>
 </head>
 <body>
@@ -35,11 +36,6 @@
             <div class="mt-5">
                 <form method="post" action="${pageContext.request.contextPath}/post-action?userID=${user.getId()}&userNickname=${user.getNickname()}&boardIdentity=<%= boardIdentity %>">
                     <table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
-                        <thead>
-                        <tr>
-                            <th style="background-color:#eeeeee; text-align:center;">Format</th>
-                        </tr>
-                        </thead>
                         <tbody>
                         <tr>
                             <td><input type="text" class="form-control" placeholder="Title" name="boardTitle" maxlength="50"></td>
@@ -48,18 +44,24 @@
                             <td><textarea class="form-control" placeholder="Content" name="boardContent" maxlength="2048" style="height: 400px;"></textarea></td>
                         </tr>
                         </tbody>
+                        <%
+	                        if (boardIdentity == 3) {
+	                    %>
+                        <tbody>
+                        <tr>
+                            <td><input type="text" class="form-control" placeholder="Study-Group Card Title" name="cardTitle" maxlength="50"></td>
+                        </tr>
+                        <tr>
+                            <td><textarea class="form-control" placeholder="Study-Group Information" name="cardContent" maxlength="2048" style="height: 150px;"></textarea></td>
+                        </tr>
+                        </tbody>
+                        <%
+	                        }
+	                    %>
                     </table>
-                    <%
-                        if (boardIdentity == 3) {
-                    %>
-                    <div class="mt-2 mb-5" style="text-align:center; vertical-align:middle; width:600px; height:300px; margin:0 auto;">
-                        <input type="text" class="form-control card-header card-title" placeholder="Card Title" name="cardTitle" maxlength="50">
-                        <textarea class="form-control card-text" placeholder="Card Content" name="cardContent" maxlength="2048" style="height: 250px;"></textarea>
+                    <div class="create mb-5">
+                    	<input type="submit" class="btn btn-success pull-right" value="Post">
                     </div>
-                    <%
-                        }
-                    %>
-                    <input type="submit" class="btn btn-success pull-right" value="Post">
                 </form>
             </div>
         </c:if>

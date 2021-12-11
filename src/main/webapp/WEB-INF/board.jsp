@@ -15,6 +15,8 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/background.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/hyperlink.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css">
 <title>Study Group</title>
 </head>
 <body>
@@ -89,7 +91,9 @@
 				</tbody>
 			</table>
 		</div>
-		<a href="${pageContext.request.contextPath}/post?boardIdentity=<%= boardIdentity %>" class="btn btn-success" role="button" aria-pressed="true" style="margin:0 auto;">Create</a>
+		<div class="create">
+			<a href="${pageContext.request.contextPath}/post?boardIdentity=<%= boardIdentity %>" class="btn btn-success" role="button" aria-pressed="true">Create</a>
+		</div>
     </section>
 
     <!-- pagination -->

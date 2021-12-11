@@ -1,0 +1,12 @@
+.create {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.button-right {
+	margin-left:auto;
+}
+
+.button-left {
+	margin:0 auto;
+}

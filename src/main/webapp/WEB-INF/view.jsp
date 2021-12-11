@@ -20,6 +20,7 @@
 <!-- Bootstrap CSS -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/view.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/button.css">
 <title>Study Group</title>
 <style type="text/css">
 	a, a:hover {
@@ -91,14 +92,14 @@
 					}
 				%>
 			</div>
-			<div class="mb-5 row" style="margin:0 auto;">
+			<div class="mb-5 row button-left">
 				<div>
 					<a href="${pageContext.request.contextPath}/board?boardIdentity=<%= boardIdentity %>" class="btn btn-success">List</a>
 				</div>
 
 				<c:set var="postWriterID" value="<%= board.getUserID() %>" />
 				<c:if test="${user.getId() eq postWriterID}">
-					<div style="margin-left:auto;">
+					<div class="button-right">
 						<a href="${pageContext.request.contextPath}/update?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Update</a>
 						<a onclick="return confirm('Are you sure you want to delete?')" href="${pageContext.request.contextPath}/delete-action?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Delete</a>
 					</div>
@@ -108,7 +109,7 @@
     </section>
     
     <!-- comment -->
-    <div class="container">
+    <div class="container mb-5">
 		<c:if test="${not empty user}">
 			<form method="post" action="${pageContext.request.contextPath}/comment-action?userID=${user.getId()}&userNickname=${user.getNickname()}&boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
 				<div class="card card-header">
@@ -118,7 +119,9 @@
 					<ul class="list-group list-group-flush">
 						<li class="list-group-item">
 							<textarea class="form-control" name="commentContent" rows="3" placeholder="Leave a comment"></textarea>
-							<input type="submit" class="btn btn-primary mt-3" value="Post">
+							<div class="create">
+								<input type="submit" class="btn btn-primary mt-3" value="Post">
+							</div>
 						</li>
 					</ul>
 				</div>
@@ -164,11 +167,12 @@
 						</td>
 					</tr>
 					<tr>
-						<td><font size="2"><%= list.get(i).getCommentDate() %>&nbsp
-							<c:if test="${user.getId() eq commentWriterID}">
-								<span class="badge badge-dark hyperlink"><a onclick="return confirm('Are you sure you want to delete?')" href="${pageContext.request.contextPath}/comment-delete-action?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= list.get(i).getBoardIdentity() %>&commentID=<%= list.get(i).getCommentID() %>">X</a></span>
-							</c:if>
-						</font>
+						<td>
+							<font size="2"><%= list.get(i).getCommentDate() %>&nbsp
+								<c:if test="${user.getId() eq commentWriterID}">
+									<span class="badge badge-dark"><a onclick="return confirm('Are you sure you want to delete?')" href="${pageContext.request.contextPath}/comment-delete-action?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= list.get(i).getBoardIdentity() %>&commentID=<%= list.get(i).getCommentID() %>">X</a></span>
+								</c:if>
+							</font>
 						</td>
 					</tr>
 				</table>
