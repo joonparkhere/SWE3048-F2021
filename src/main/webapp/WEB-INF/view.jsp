@@ -63,7 +63,23 @@
 				<table class="table" style="text-align:center;">
 					<thead>
 					<tr>
-						<th colspan="3" style="text-align:center; font-size:20px;"><%= board.getBoardTitle() %></th>
+						<th colspan="3" style="text-align:center; font-size:20px;">
+							<%
+								if (boardIdentity == 3) {
+									if (board.getBoardAvailable() == 2) {
+							%>
+							<span class="badge badge-secondary">CLOSED</span>&nbsp
+							<%
+									}
+									else {
+							%>
+							<span class="badge badge-primary">OPEN</span>&nbsp
+							<%
+									}
+								}
+							%>
+							<%= board.getBoardTitle() %>
+						</th>
 					</tr>
 					</thead>
 					<tbody>
@@ -100,8 +116,22 @@
 				<c:set var="postWriterID" value="<%= board.getUserID() %>" />
 				<c:if test="${user.getId() eq postWriterID}">
 					<div class="button-right">
+						<%
+							if (boardIdentity == 3) {
+								if (board.getBoardAvailable() == 1) {
+						%>
+						<a onclick="return confirm('Are you sure you want to close?')" href="${pageContext.request.contextPath}/close-action?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-warning">Close</a>
+						<%
+								}
+								else {
+						%>
+						<a onclick="return confirm('Are you sure you want to open?')" href="${pageContext.request.contextPath}/open-action?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-primary">Open</a>
+						<%
+								}
+							}
+						%>
 						<a href="${pageContext.request.contextPath}/update?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Update</a>
-						<a onclick="return confirm('Are you sure you want to delete?')" href="${pageContext.request.contextPath}/delete-action?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-success">Delete</a>
+						<a onclick="return confirm('Are you sure you want to delete?')" href="${pageContext.request.contextPath}/delete-action?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>" class="btn btn-danger">Delete</a>
 					</div>
 				</c:if>
 			</div>
@@ -111,6 +141,9 @@
     <!-- comment -->
     <div class="container mb-5">
 		<c:if test="${not empty user}">
+			<%
+				if (board.getBoardAvailable() == 1) {
+			%>
 			<form method="post" action="${pageContext.request.contextPath}/comment-action?userID=${user.getId()}&userNickname=${user.getNickname()}&boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
 				<div class="card card-header">
 					<i class="fa fa-comment">Comment</i>
@@ -127,6 +160,7 @@
 				</div>
 			</form>
 			<%
+				}
 				for (int i = 0; i < list.size(); i++) {
 			%>
 			<div class="card card-header bg-light">

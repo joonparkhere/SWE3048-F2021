@@ -52,6 +52,16 @@ public class MainController {
         return "deleteAction";
     }
 
+    @GetMapping("/close-action")
+    public String closeAction() {
+        return "closeAction";
+    }
+    
+    @GetMapping("/open-action")
+    public String openAction() {
+        return "openAction";
+    }
+    
     @PostMapping("/comment-action")
     public String commentAction() {
         return "commentAction";

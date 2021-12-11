@@ -61,7 +61,7 @@ public class BoardDAO {
 	}
 	
 	public ArrayList<BoardDTO> getList(int pageNumber, int boardIdentity) {
-		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
+		String SQL = "SELECT * FROM BOARD WHERE boardAvailable > 0 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		ArrayList<BoardDTO> list = new ArrayList<BoardDTO>();
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -87,7 +87,7 @@ public class BoardDAO {
 	}
 	
 	public boolean nextPage(int pageNumber, int boardIdentity) {
-		String SQL = "SELECT * FROM BOARD WHERE boardAvailable = 1 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
+		String SQL = "SELECT * FROM BOARD WHERE boardAvailable > 0 AND boardIdentity = ? ORDER BY boardID DESC LIMIT 10 OFFSET ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardIdentity);
@@ -144,6 +144,32 @@ public class BoardDAO {
 	
 	public int delete(int boardID, int boardIdentity) {
 		String SQL = "UPDATE BOARD SET boardAvailable = 0 WHERE boardID = ? AND boardIdentity = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, boardIdentity);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int close(int boardID, int boardIdentity) {
+		String SQL = "UPDATE BOARD SET boardAvailable = 2 WHERE boardID = ? AND boardIdentity = ?";
+		try {
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			pstmt.setInt(1, boardID);
+			pstmt.setInt(2, boardIdentity);
+			return pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return -1;
+	}
+	
+	public int open(int boardID, int boardIdentity) {
+		String SQL = "UPDATE BOARD SET boardAvailable = 1 WHERE boardID = ? AND boardIdentity = ?";
 		try {
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
 			pstmt.setInt(1, boardID);

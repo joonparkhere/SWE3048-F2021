@@ -74,6 +74,20 @@
 							<%= list.get(i).getBoardID() %>
 						</td>
 						<td>
+							<%
+								if (boardIdentity == 3) {
+									if (list.get(i).getBoardAvailable() == 2) {
+							%>
+							<span class="badge badge-secondary">CLOSED</span>&nbsp
+							<%
+									}
+									else {
+							%>
+							<span class="badge badge-success">OPEN</span>&nbsp
+							<%
+									}
+								}
+							%>
 							<a href="${pageContext.request.contextPath}/view?boardID=<%= list.get(i).getBoardID() %>&boardIdentity=<%= boardIdentity %>">
 								<%= list.get(i).getBoardTitle() %>
 							</a>

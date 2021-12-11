@@ -50,11 +50,6 @@
 			<div class="mt-5">
 				<form method="post" action="${pageContext.request.contextPath}/update-action?boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
 					<table class="table table-striped" style="text-align:center; border:1px solid #dddddd">
-						<thead>
-						<tr>
-							<th style="background-color:#eeeeee; text-align:center;">Format</th>
-						</tr>
-						</thead>
 						<tbody>
 						<tr>
 							<td><input type="text" class="form-control" placeholder="Title" name="boardTitle" maxlength="50" value="<%= board.getBoardTitle() %>"></td>
@@ -63,17 +58,21 @@
 							<td><textarea class="form-control" placeholder="Content" name="boardContent" maxlength="2048" style="height: 400px;"><%= board.getBoardContent() %></textarea></td>
 						</tr>
 						</tbody>
+						<%
+							if (boardIdentity == 3) {
+						%>
+						<tbody>
+						<tr>
+							<td><input type="text" class="form-control" placeholder="Study Title" name="cardTitle" maxlength="50" value="<%= card.getCardTitle() %>"></td>
+						</tr>
+						<tr>
+							<td><textarea class="form-control" placeholder="Study-Group Information" name="cardContent" maxlength="2048" style="height: 150px;"><%= card.getCardContent() %></textarea></td>
+						</tr>
+						</tbody>
+						<%
+							}
+						%>
 					</table>
-					<%
-						if (boardIdentity == 3) {
-					%>
-					<div class="mt-2 mb-5" style="text-align:center; vertical-align:middle; width:600px; height:300px; margin:0 auto;">
-						<input type="text" class="form-control card-header card-title" placeholder="Card Title" name="cardTitle" maxlength="50" value="<%= card.getCardTitle() %>">
-						<textarea class="form-control card-text" placeholder="Card Content" name="cardContent" maxlength="2048" style="height: 250px;"><%= card.getCardContent() %></textarea>
-					</div>
-					<%
-						}
-					%>
 					<input type="submit" class="btn btn-success pull-right" value="Update">
 				</form>
 			</div>
