@@ -27,7 +27,7 @@
                             <div class="login-img">
                                 <img src="${pageContext.request.contextPath}/img/GitHub-Mark-120px-plus.png" width="32px" height="32px" alt="GitHub Mark">
                             </div>
-                            <div class="login-text">
+                            <div class="login-text text-primary">
                                 GitHub Login
                             </div>
                         </a>
@@ -37,7 +37,7 @@
                             <div class="login-img">
                                 <img src="${pageContext.request.contextPath}/img/Google-Mark-1000.png" width="32px" height="32px" alt="Google Mark">
                             </div>
-                            <div class="login-text">
+                            <div class="login-text text-primary">
                                 Google Login
                             </div>
                         </a>

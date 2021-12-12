@@ -40,7 +40,7 @@
         <jsp:include page="nav.jsp" />
 
         <div class="welcome-message">
-            <p>👀 Study With We!</p>
+            <p>👀 Study With Us!</p>
         </div>
 
         <div id="intro-slide" class="carousel slide" data-ride="carousel">
