@@ -6,7 +6,7 @@ $(document).ready(() => {
     // invite new member to study when button is clicked
     $(".study-invite").click(async (event) => {
         let parameterString = event.target.value
-        let parameterList = parameterString.split(",")
+        let parameterList = parameterString.split("|")
 
         let recruitId = parameterList[0]
         let title = parameterList[1]
