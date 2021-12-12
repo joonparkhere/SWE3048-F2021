@@ -11,7 +11,7 @@ public class BoardDAO {
 	Connection conn = DatabaseUtil.getConnection();
 	ResultSet rs = null;
 	
-	/* method to get write time */
+	/* method to get current time */
 	public String getDate() {
 		String SQL = "SELECT NOW()";
 		try {

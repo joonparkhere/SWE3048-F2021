@@ -1,6 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ page import="edu.skku.wpl2021f.user.UserDAO" %>
 <%@ page import="edu.skku.wpl2021f.board.BoardDTO"%>
 <%@ page import="edu.skku.wpl2021f.board.BoardDAO"%>
 <%@ page import="edu.skku.wpl2021f.card.CardDTO"%>
