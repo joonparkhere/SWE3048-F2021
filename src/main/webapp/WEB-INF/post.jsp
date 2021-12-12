@@ -27,7 +27,7 @@
     <jsp:include page="nav.jsp" />
 
     <!-- main content -->
-    <section class="container">
+    <section class="container" style="min-height: 87vh;">
         <c:if test="${empty user}">
             <jsp:include page="non-login-alter.jsp" />
         </c:if>

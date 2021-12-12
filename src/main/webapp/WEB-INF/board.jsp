@@ -37,7 +37,7 @@
     <jsp:include page="nav.jsp" />
 
     <!-- main content -->
-    <section class="container-fluid">
+    <section class="container-fluid" style="min-height: 68vh;">
 		<div class="mt-5 mb-3">
 			<!-- title board -->
 			<div class="boardBackground">
