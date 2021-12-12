@@ -153,7 +153,7 @@
 			%>
 			<form method="post" action="${pageContext.request.contextPath}/comment-action?userID=${user.getId()}&userNickname=${user.getNickname()}&boardID=<%= boardID %>&boardIdentity=<%= boardIdentity %>">
 				<div class="card card-header">
-					<i class="fa fa-comment">Comment</i>
+					<i class="fa fa-comment">&nbsp&nbspComment</i>
 				</div>
 				<div class="card card-body mb-5">
 					<ul class="list-group list-group-flush">
