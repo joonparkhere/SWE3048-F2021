@@ -111,7 +111,7 @@
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"><%= card.getCardTitle() %></h5>
-                                <p class="card-text"><%= card.getCardContent() %></p>
+                                <p class="card-text card-content-mt recruit-description"><%= card.getCardContent().replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>") %></p>
                                 <a href="${pageContext.request.contextPath}/view?boardID=<%= card.getBoardID() %>&boardIdentity=3" class="btn btn-primary">Details</a>
                             </div>
                         </div>

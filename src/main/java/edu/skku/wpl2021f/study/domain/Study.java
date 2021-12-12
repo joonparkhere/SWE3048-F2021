@@ -35,6 +35,7 @@ public class Study {
     @Column
     private String title;
 
+    @Lob
     @Column
     private String description;
 

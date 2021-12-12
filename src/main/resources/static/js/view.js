@@ -35,8 +35,6 @@ $(document).ready(() => {
             })
         })
 
-        console.log(response)
-
         if (!response.ok) {
             modalBody.html("Fail to invite " + followerNickname)
             return

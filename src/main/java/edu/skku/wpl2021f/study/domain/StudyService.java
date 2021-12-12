@@ -48,10 +48,11 @@ public class StudyService {
     @Transactional
     public Study create(Long recruitId, String title, String description, String leaderNickname) {
         User leader = userService.loadUserByNickname(leaderNickname);
+        String parsedDescription = description.replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>");
         Study study = Study.builder()
                 .recruitId(recruitId)
                 .title(title)
-                .description(description)
+                .description(parsedDescription)
                 .leader(leader)
                 .build();
         return studyRepository.save(study);
